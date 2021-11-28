@@ -1,0 +1,17 @@
+.bodyHeader {
+  max-width: var(--content-width);
+  padding: 4rem 0.5rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bodyHeader h1,
+.bodyHeader p {
+  margin: 0;
+}
+
+.bodyHeader h1 {
+  margin-bottom: 0.5rem;
+  font-weight: 200;
+  font-size: 2.5rem;
+}

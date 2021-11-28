@@ -1,14 +1,14 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import React from 'react';
+import { Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
-import Container from './container'
-import Tags from './tags'
-import * as styles from './article-preview.module.css'
+import Container from './container';
+import Tags from './tags';
+import * as styles from './article-preview.module.css';
 
 const ArticlePreview = ({ posts }) => {
-  if (!posts) return null
-  if (!Array.isArray(posts)) return null
+  if (!posts) return null;
+  if (!Array.isArray(posts)) return null;
 
   return (
     <Container>
@@ -30,11 +30,11 @@ const ArticlePreview = ({ posts }) => {
                 <Tags tags={post.tags} />
               </div>
             </li>
-          )
+          );
         })}
       </ul>
     </Container>
-  )
-}
+  );
+};
 
-export default ArticlePreview
+export default ArticlePreview;
