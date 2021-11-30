@@ -8,12 +8,11 @@ import Footer from './footer';
 
 const Template = ({ children, setIsMenuOpen }) => {
   return (
-    <>
+    <div className="layout">
       <Seo />
-      <Header />
       <main>{children}</main>
-      <Footer />
-    </>
+      {/* <Footer /> */}
+    </div>
   );
 };
 

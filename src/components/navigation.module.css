@@ -1,31 +1,25 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: var(--content-width);
-  margin: 0 auto;
-  padding: 1rem 0.5rem;
-}
-
 .navigation {
   display: flex;
   list-style: none;
   margin: 0;
 }
 
-.navigationList {
-  padding: 0;
-}
-
 .navigationItem {
-  display: inline-flex;
-  align-items: center;
-  flex-direction: row;
-  padding: 0 0.5rem;
+  position: relative;
+  cursor: none;
 }
 
-.baseItem:not(:last-of-type) {
-  border-left: 2px solid grey;
+.navigationItem:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 4rem;
+  width: fit-content;
+  line-height: 1;
 }
 
 .navigationItem a {

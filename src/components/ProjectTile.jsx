@@ -1,54 +1,87 @@
 import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-const ProjectTile = ({ project, setText }) => {
-  function hoverTile(e) {
+const ProjectTile = ({ project, showLightbox }) => {
+  function createCircle(e) {
     const tile = e.currentTarget;
-    const line = tile.querySelector('.tile-line--fluid');
+    const circle = document.createElement('div');
+    const text = document.createElement('p');
+    text.textContent = 'View More';
+    circle.append(text);
 
-    var lineRect = line.getBoundingClientRect();
+    circle.className = 'tile-circle';
 
-    var center_x = lineRect.left + lineRect.width / 2;
-    var center_y = lineRect.top + lineRect.height / 2;
-
-    var mouse_x = e.clientX;
-    var mouse_y = e.clientY;
-
-    var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-    var degree = radians * (180 / Math.PI) * -1 + 90;
-
-    line.style.transform = `rotate(${degree}deg)`;
-
-    const lineWidth = Math.hypot(
-      e.clientX - lineRect.left,
-      e.clientY - lineRect.top
-    );
-
-    line.style.width = `${lineWidth}px`;
-
-    setText(`${project.title} \n ${project.slug}`);
+    tile.append(circle);
   }
 
-  function handleMouseLeave(e) {
-    const tile = e.currentTarget;
-    const line = tile.querySelector('.tile-line--fluid');
+  function moveCircle(e) {
+    const circle = e.currentTarget.querySelector('.tile-circle');
+    const title = e.currentTarget.querySelector('p');
 
-    line.style.width = '0px';
-    setText('');
+    const tileRect = e.currentTarget.getBoundingClientRect();
+    const circleRect = circle.getBoundingClientRect();
+    const titleRect = title.getBoundingClientRect();
+
+    const x = e.clientX - tileRect.left - circleRect.width / 2;
+    const y = e.clientY - tileRect.top - circleRect.height / 2;
+
+    const cursorTransform = `translate(${x}px, ${y}px)`;
+
+    e.target === title
+      ? (circle.querySelector('p').style.opacity = 0)
+      : (circle.querySelector('p').style.opacity = 1);
+
+    if (e.target === title) {
+      circle.style.width = `${titleRect.width + 20}px`;
+      circle.style.height = `${titleRect.width + 20}px`;
+    } else {
+      circle.style.width = `100px`;
+      circle.style.height = `100px`;
+    }
+
+    circle.style.transform = cursorTransform;
+    circle.style.opacity = 1;
+  }
+
+  function hideCircle(e) {
+    const circles = e.currentTarget.querySelectorAll('.tile-circle');
+    circles.forEach((c) => e.currentTarget.removeChild(c));
+  }
+
+  function clickTile(e) {
+    const tile = e.currentTarget;
+
+    tile.style.zIndex = 99;
+
+    const currentX = tile.getBoundingClientRect().left;
+    const currentY = tile.getBoundingClientRect().top;
+
+    const targetX =
+      window.innerWidth / 2 - tile.getBoundingClientRect().width / 2;
+    const targetY =
+      window.innerHeight / 2 - tile.getBoundingClientRect().height / 2;
+
+    const translateX = `${targetX - currentX}px`;
+    const translateY = `${targetY - currentY}px`;
+
+    tile.style.transform = `translate(${translateX}, ${translateY})`;
   }
 
   return (
     <li
-      className="project-thumb"
-      // onMouseMove={hoverTile}
-      // onMouseLeave={handleMouseLeave}
+      className="tile"
+      data-key={project.contentful_id}
+      onClick={clickTile}
+      onMouseEnter={createCircle}
+      onMouseMove={moveCircle}
+      onMouseLeave={hideCircle}
+      data-focused={false}
     >
       <GatsbyImage
         image={project.heroImage.gatsbyImageData}
         alt="project thumbnail"
         loading="lazy"
       />
-      <div className="tile-line--fluid"></div>
       <div className="tile-overlay">
         <p>{project.title}</p>
       </div>
