@@ -162,7 +162,7 @@ ol > li {
 .wild-brand {
   display: block;
   font-size: 4rem;
-  transition: all 200ms;
+  transition: all 200ms ease-in;
 }
 
 .wild-brand h1 {
