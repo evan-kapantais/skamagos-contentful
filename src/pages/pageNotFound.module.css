@@ -1,0 +1,38 @@
+.page {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.heading {
+  font-size: 10vw;
+  color: #222;
+  margin: 0;
+}
+
+.paragraph {
+  font-size: 1.5rem;
+  color: rgba(34, 34, 34, 0.663);
+}
+
+.homePar {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.link {
+  color: tomato;
+}
+
+.link:hover {
+  color: tomato;
+  text-decoration: underline;
+}

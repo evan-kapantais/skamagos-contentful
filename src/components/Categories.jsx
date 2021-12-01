@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 
 import * as styles from './navigation.module.css';
 
-const Categories = () => {
+const Categories = ({ categories, filterProjects }) => {
   function createArrow(e) {
     const category = e.currentTarget;
     const arrow = document.createElement('span');
@@ -34,7 +34,16 @@ const Categories = () => {
   return (
     <nav role="navigation" className={styles.container} aria-label="Main">
       <ul className={styles.navigationList}>
-        <li
+        {categories.map((c, i) => (
+          <li
+            className={styles.navigationItem}
+            key={i}
+            onClick={() => filterProjects(c)}
+          >
+            {c}
+          </li>
+        ))}
+        {/* <li
           className={styles.navigationItem}
           onMouseEnter={createArrow}
           onMouseMove={moveArrow}
@@ -68,17 +77,7 @@ const Categories = () => {
           <Link to="/work/" activeClassName="active">
             Portraits
           </Link>
-        </li>
-        <li className={`${styles.navigationItem} ${styles.baseItem}`}>
-          <Link to="/About/" activeClassName="active">
-            About
-          </Link>
-        </li>
-        <li className={`${styles.navigationItem} ${styles.baseItem}`}>
-          <Link to="/contact/" activeClassName="active">
-            Contact
-          </Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

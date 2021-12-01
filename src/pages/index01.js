@@ -14,22 +14,38 @@ const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const projects = data.allContentfulProject.nodes;
+  const [ps, setPs] = useState([]);
+
+  useEffect(() => {
+    const projects = data.allContentfulProject.nodes;
+    setPs(projects);
+  });
+
+  const projectCategories = ps
+    .map((project) => project.category)
+    .filter((value, index, array) => array.indexOf(value) === index);
 
   const column1 = [];
   const column2 = [];
   const column3 = [];
 
-  for (let i = 0; i < projects.length; i = i + 3) {
-    if (i < projects.length) {
-      column1.push(projects[i]);
-      column2.push(projects[i + 1]);
-      column3.push(projects[i + 2]);
+  for (let i = 0; i < ps.length; i = i + 3) {
+    if (i < ps.length) {
+      column1.push(ps[i]);
+      column2.push(ps[i + 1]);
+      column3.push(ps[i + 2]);
     }
   }
 
+  function filterProjects(category) {
+    console.log(category);
+    const filtered = ps.filter((p) => (p.category = category));
+    console.log(filtered);
+    // setPs(ps.filter((p) => (p.category = category)));
+  }
+
   function showLightbox(e) {
-    const idsArray = projects.map((project) => project.contentful_id);
+    const idsArray = ps.map((project) => project.contentful_id);
 
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
 
@@ -55,14 +71,17 @@ const RootIndex = ({ data }) => {
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <div className="brand-wrapper">
-        <Link className="wild-brand">
+        <Link to="/" className="wild-brand">
           <h1>Skamagos</h1>
         </Link>
       </div>
       <div className="index-container">
         <aside className="sidebar">
           <div></div>
-          <Categories />
+          <Categories
+            categories={projectCategories}
+            filterProjects={filterProjects}
+          />
           <SidebarFooter />
         </aside>
         <section className="content">
@@ -110,7 +129,7 @@ const RootIndex = ({ data }) => {
           <Footer />
         </section>
       </div>
-      {isLightBoxOpen && <Lightbox projects={projects} />}
+      {/* {isLightBoxOpen && <Lightbox projects={projects} />} */}
     </Layout>
   );
 };
@@ -123,6 +142,7 @@ export const pageQuery = graphql`
       nodes {
         contentful_id
         title
+        category
         slug
         publishDate(formatString: "MMMM Do, YYYY")
         heroImage {

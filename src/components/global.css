@@ -170,6 +170,7 @@ ol > li {
 }
 
 .content {
+  width: calc(100% - 300px);
   width: 100%;
   overflow-x: hidden;
 }
