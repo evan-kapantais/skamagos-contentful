@@ -16,6 +16,10 @@ const RootIndex = ({ data }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [ps, setPs] = useState([]);
 
+  const column1 = [];
+  const column2 = [];
+  const column3 = [];
+
   useEffect(() => {
     const projects = data.allContentfulProject.nodes;
     setPs(projects);
@@ -24,10 +28,6 @@ const RootIndex = ({ data }) => {
   const projectCategories = ps
     .map((project) => project.category)
     .filter((value, index, array) => array.indexOf(value) === index);
-
-  const column1 = [];
-  const column2 = [];
-  const column3 = [];
 
   for (let i = 0; i < ps.length; i = i + 3) {
     if (i < ps.length) {
@@ -38,10 +38,12 @@ const RootIndex = ({ data }) => {
   }
 
   function filterProjects(category) {
+    console.clear();
     console.log(category);
-    const filtered = ps.filter((p) => (p.category = category));
-    console.log(filtered);
-    // setPs(ps.filter((p) => (p.category = category)));
+
+    const test = ps.filter((p) => p.category === category);
+    console.log(test);
+    setPs(ps.filter((p) => p.category === category));
   }
 
   function showLightbox(e) {
@@ -52,6 +54,7 @@ const RootIndex = ({ data }) => {
     setLightboxIndex(elementPosition);
   }
 
+  // Hide the brand on scroll
   useEffect(() => {
     const brandWrapper = document.querySelector('.brand-wrapper');
     const brand = document.querySelector('.wild-brand');
@@ -66,6 +69,8 @@ const RootIndex = ({ data }) => {
       }
     });
   }, []);
+
+  console.log(ps);
 
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>

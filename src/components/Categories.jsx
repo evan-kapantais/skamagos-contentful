@@ -43,41 +43,6 @@ const Categories = ({ categories, filterProjects }) => {
             {c}
           </li>
         ))}
-        {/* <li
-          className={styles.navigationItem}
-          onMouseEnter={createArrow}
-          onMouseMove={moveArrow}
-          onMouseLeave={hideArrow}
-        >
-          <Link to="/work/" activeClassName="active">
-            Editorials
-          </Link>
-        </li>
-        <li className={styles.navigationItem}>
-          <Link to="/work/" activeClassName="active">
-            Film
-          </Link>
-        </li>
-        <li className={styles.navigationItem}>
-          <Link to="/work/" activeClassName="active">
-            Commercials
-          </Link>
-        </li>
-        <li className={styles.navigationItem}>
-          <Link to="/work/" activeClassName="active">
-            Fashion
-          </Link>
-        </li>
-        <li className={styles.navigationItem}>
-          <Link to="/work/" activeClassName="active">
-            Street
-          </Link>
-        </li>
-        <li className={styles.navigationItem}>
-          <Link to="/work/" activeClassName="active">
-            Portraits
-          </Link>
-        </li> */}
       </ul>
     </nav>
   );
