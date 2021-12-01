@@ -71,11 +71,10 @@ const ProjectTile = ({ project, showLightbox }) => {
     <li
       className="tile"
       data-key={project.contentful_id}
-      onClick={clickTile}
+      // onClick={clickTile}
       onMouseEnter={createCircle}
       onMouseMove={moveCircle}
       onMouseLeave={hideCircle}
-      data-focused={false}
     >
       <GatsbyImage
         image={project.heroImage.gatsbyImageData}

@@ -149,14 +149,29 @@ ol > li {
 
 /* Main content */
 
+.brand-wrapper {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  color: #fff;
+  mix-blend-mode: difference;
+  z-index: 99;
+  overflow: hidden;
+}
+
+.wild-brand {
+  display: block;
+  font-size: 4rem;
+  transition: all 200ms;
+}
+
+.wild-brand h1 {
+  margin: 0;
+}
+
 .content {
   width: 100%;
   overflow-x: hidden;
-}
-
-.tiles-wrapper {
-  display: grid;
-  grid-template-columns: 1fr var(--content-width) 1fr;
 }
 
 .project-thumbs__wrapper {

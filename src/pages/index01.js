@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { graphql } from 'gatsby';
+import React, { useEffect, useState } from 'react';
+import { graphql, Link } from 'gatsby';
 
 import Layout from '../components/layout';
 import Menu from '../components/Menu';
@@ -36,12 +36,32 @@ const RootIndex = ({ data }) => {
     setLightboxIndex(elementPosition);
   }
 
+  useEffect(() => {
+    const brandWrapper = document.querySelector('.brand-wrapper');
+    const brand = document.querySelector('.wild-brand');
+
+    window.addEventListener('scroll', () => {
+      if (typeof window !== 'undefined' && window.scrollY > 100) {
+        brand.style.transform = 'translateY(100%)';
+        brandWrapper.style.pointerEvents = 'none';
+      } else {
+        brand.style.transform = 'translateY(0)';
+        brandWrapper.style.pointerEvents = 'all';
+      }
+    });
+  }, []);
+
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <div className="brand-wrapper">
+        <Link className="wild-brand">
+          <h1>Skamagos</h1>
+        </Link>
+      </div>
       <div className="index-container">
         <aside className="sidebar">
-          <Header />
+          <div></div>
           <Categories />
           <SidebarFooter />
         </aside>
