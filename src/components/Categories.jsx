@@ -34,6 +34,13 @@ const Categories = ({ categories, filterProjects }) => {
   return (
     <nav role="navigation" className={styles.container} aria-label="Main">
       <ul className={styles.navigationList}>
+        <li
+          className={styles.navigationItem}
+          key="All"
+          onClick={() => filterProjects('All')}
+        >
+          All
+        </li>
         {categories.map((c, i) => (
           <li
             className={styles.navigationItem}

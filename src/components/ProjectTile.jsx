@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const ProjectTile = ({ project, showLightbox }) => {
+  const myRef = useRef();
+
+  // useEffect(() => {
+  //   effect;
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, []);
+
   function createCircle(e) {
     const tile = e.currentTarget;
     const circle = document.createElement('div');
@@ -69,6 +78,7 @@ const ProjectTile = ({ project, showLightbox }) => {
 
   return (
     <li
+      ref={myRef}
       className="tile"
       data-key={project.contentful_id}
       // onClick={clickTile}

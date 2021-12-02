@@ -14,40 +14,44 @@ const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const [ps, setPs] = useState([]);
+  const [projects, setProjects] = useState(null);
+  const [categories, setCategories] = useState(null);
+
+  const fetchedProjects = data.allContentfulProject.nodes;
 
   const column1 = [];
   const column2 = [];
   const column3 = [];
 
   useEffect(() => {
-    const projects = data.allContentfulProject.nodes;
-    setPs(projects);
-  });
+    setProjects(fetchedProjects);
+    setCategories(
+      fetchedProjects
+        .map((p) => p.category)
+        .filter((value, index, array) => array.indexOf(value) === index)
+    );
+  }, []);
 
-  const projectCategories = ps
-    .map((project) => project.category)
-    .filter((value, index, array) => array.indexOf(value) === index);
-
-  for (let i = 0; i < ps.length; i = i + 3) {
-    if (i < ps.length) {
-      column1.push(ps[i]);
-      column2.push(ps[i + 1]);
-      column3.push(ps[i + 2]);
+  if (projects) {
+    for (let i = 0; i < projects.length; i = i + 3) {
+      if (i < projects.length) {
+        column1.push(projects[i]);
+        column2.push(projects[i + 1]);
+        column3.push(projects[i + 2]);
+      }
     }
   }
 
   function filterProjects(category) {
-    console.clear();
-    console.log(category);
+    if (category === 'All') return setProjects(fetchedProjects);
 
-    const test = ps.filter((p) => p.category === category);
-    console.log(test);
-    setPs(ps.filter((p) => p.category === category));
+    setProjects([
+      ...fetchedProjects.filter((project) => project.category === category),
+    ]);
   }
 
   function showLightbox(e) {
-    const idsArray = ps.map((project) => project.contentful_id);
+    const idsArray = projects.map((project) => project.contentful_id);
 
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
 
@@ -70,8 +74,6 @@ const RootIndex = ({ data }) => {
     });
   }, []);
 
-  console.log(ps);
-
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
@@ -80,61 +82,64 @@ const RootIndex = ({ data }) => {
           <h1>Skamagos</h1>
         </Link>
       </div>
-      <div className="index-container">
-        <aside className="sidebar">
-          <div></div>
-          <Categories
-            categories={projectCategories}
-            filterProjects={filterProjects}
-          />
-          <SidebarFooter />
-        </aside>
-        <section className="content">
-          <div className="project-thumbs__wrapper">
-            <div className="project-thumbs__column">
-              <ul className="project-thumbs__list">
-                {column1.map((project) => (
-                  <ProjectTile
-                    key={project.contentful_id}
-                    project={project}
-                    showLightbox={showLightbox}
-                  />
-                ))}
-              </ul>
+      {(!projects || !categories) && <p>Loading content...</p>}
+      {projects && categories && (
+        <div className="index-container">
+          <aside className="sidebar">
+            <div></div>
+            <Categories
+              categories={categories}
+              filterProjects={filterProjects}
+            />
+            <SidebarFooter />
+          </aside>
+          <section className="content">
+            <div className="project-thumbs__wrapper">
+              <div className="project-thumbs__column">
+                <ul className="project-thumbs__list">
+                  {column1.map((project) => (
+                    <ProjectTile
+                      key={project.contentful_id}
+                      project={project}
+                      showLightbox={showLightbox}
+                    />
+                  ))}
+                </ul>
+              </div>
+              <div className="project-thumbs__column">
+                <ul className="project-thumbs__list">
+                  {column2.map(
+                    (project) =>
+                      typeof project !== 'undefined' && (
+                        <ProjectTile
+                          key={project.contentful_id}
+                          project={project}
+                          showLightbox={showLightbox}
+                        />
+                      )
+                  )}
+                </ul>
+              </div>
+              <div className="project-thumbs__column">
+                <ul className="project-thumbs__list">
+                  {column3.map(
+                    (project) =>
+                      typeof project !== 'undefined' && (
+                        <ProjectTile
+                          key={project.contentful_id}
+                          project={project}
+                          showLightbox={showLightbox}
+                        />
+                      )
+                  )}
+                </ul>
+              </div>
             </div>
-            <div className="project-thumbs__column">
-              <ul className="project-thumbs__list">
-                {column2.map(
-                  (project) =>
-                    typeof project !== 'undefined' && (
-                      <ProjectTile
-                        key={project.contentful_id}
-                        project={project}
-                        showLightbox={showLightbox}
-                      />
-                    )
-                )}
-              </ul>
-            </div>
-            <div className="project-thumbs__column">
-              <ul className="project-thumbs__list">
-                {column3.map(
-                  (project) =>
-                    typeof project !== 'undefined' && (
-                      <ProjectTile
-                        key={project.contentful_id}
-                        project={project}
-                        showLightbox={showLightbox}
-                      />
-                    )
-                )}
-              </ul>
-            </div>
-          </div>
-          <Footer />
-        </section>
-      </div>
-      {/* {isLightBoxOpen && <Lightbox projects={projects} />} */}
+            <Footer />
+          </section>
+        </div>
+      )}
+      {<Lightbox projects={projects} />}
     </Layout>
   );
 };
