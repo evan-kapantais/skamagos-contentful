@@ -1,16 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const ProjectTile = ({ project, showLightbox }) => {
-  const myRef = useRef();
-
-  // useEffect(() => {
-  //   effect;
-  //   return () => {
-  //     cleanup;
-  //   };
-  // }, []);
-
   function createCircle(e) {
     const tile = e.currentTarget;
     const circle = document.createElement('div');
@@ -52,39 +43,19 @@ const ProjectTile = ({ project, showLightbox }) => {
     circle.style.opacity = 1;
   }
 
-  function hideCircle(e) {
+  function destroyCircle(e) {
     const circles = e.currentTarget.querySelectorAll('.tile-circle');
     circles.forEach((c) => e.currentTarget.removeChild(c));
   }
 
-  function clickTile(e) {
-    const tile = e.currentTarget;
-
-    tile.style.zIndex = 99;
-
-    const currentX = tile.getBoundingClientRect().left;
-    const currentY = tile.getBoundingClientRect().top;
-
-    const targetX =
-      window.innerWidth / 2 - tile.getBoundingClientRect().width / 2;
-    const targetY =
-      window.innerHeight / 2 - tile.getBoundingClientRect().height / 2;
-
-    const translateX = `${targetX - currentX}px`;
-    const translateY = `${targetY - currentY}px`;
-
-    tile.style.transform = `translate(${translateX}, ${translateY})`;
-  }
-
   return (
     <li
-      ref={myRef}
       className="tile"
       data-key={project.contentful_id}
-      // onClick={clickTile}
-      onMouseEnter={createCircle}
-      onMouseMove={moveCircle}
-      onMouseLeave={hideCircle}
+      onClick={showLightbox}
+      // onMouseEnter={createCircle}
+      // onMouseMove={moveCircle}
+      // onMouseLeave={destroyCircle}
     >
       <GatsbyImage
         image={project.heroImage.gatsbyImageData}

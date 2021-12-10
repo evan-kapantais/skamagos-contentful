@@ -116,6 +116,10 @@ ol > li {
   position: relative;
 }
 
+.layout * {
+  cursor: none;
+}
+
 .index-container {
   display: flex;
 }
@@ -155,7 +159,7 @@ ol > li {
   left: 1rem;
   color: #fff;
   mix-blend-mode: difference;
-  z-index: 99;
+  z-index: 9;
   overflow: hidden;
 }
 
@@ -253,7 +257,7 @@ ol > li {
   background: #fff;
   border: 2px solid rgba(255, 255, 255, 0.759);
   z-index: 2;
-  opacity: 0;
+  /* opacity: 0; */
   mix-blend-mode: difference;
   pointer-events: none;
   transition: all 300ms ease, transform 0ms;

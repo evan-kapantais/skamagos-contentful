@@ -5,7 +5,6 @@ import Layout from '../components/layout';
 import Menu from '../components/Menu';
 import ProjectTile from '../components/ProjectTile';
 import Categories from '../components/Categories';
-import Header from '../components/Header';
 import SidebarFooter from '../components/SidebarFooter';
 import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
@@ -19,10 +18,7 @@ const RootIndex = ({ data }) => {
 
   const fetchedProjects = data.allContentfulProject.nodes;
 
-  const column1 = [];
-  const column2 = [];
-  const column3 = [];
-
+  // Set projects and categories
   useEffect(() => {
     setProjects(fetchedProjects);
     setCategories(
@@ -31,6 +27,32 @@ const RootIndex = ({ data }) => {
         .filter((value, index, array) => array.indexOf(value) === index)
     );
   }, []);
+
+  // Hide the brand on scroll
+  useEffect(() => {
+    const brandWrapper = document.querySelector('.brand-wrapper');
+    const brand = document.querySelector('.wild-brand');
+
+    window.addEventListener('scroll', () => {
+      if (typeof window !== 'undefined' && window.scrollY > 100) {
+        brand.style.transform = 'translateY(100%)';
+        brandWrapper.style.pointerEvents = 'none';
+      } else {
+        brand.style.transform = 'translateY(0)';
+        brandWrapper.style.pointerEvents = 'all';
+      }
+    });
+  }, []);
+
+  // Control document overflow
+  useEffect(() => {
+    if (isLightBoxOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+  }, [isLightBoxOpen]);
+
+  const column1 = [];
+  const column2 = [];
+  const column3 = [];
 
   if (projects) {
     for (let i = 0; i < projects.length; i = i + 3) {
@@ -52,27 +74,11 @@ const RootIndex = ({ data }) => {
 
   function showLightbox(e) {
     const idsArray = projects.map((project) => project.contentful_id);
-
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
 
     setLightboxIndex(elementPosition);
+    setIsLightBoxOpen(true);
   }
-
-  // Hide the brand on scroll
-  useEffect(() => {
-    const brandWrapper = document.querySelector('.brand-wrapper');
-    const brand = document.querySelector('.wild-brand');
-
-    window.addEventListener('scroll', () => {
-      if (typeof window !== 'undefined' && window.scrollY > 100) {
-        brand.style.transform = 'translateY(100%)';
-        brandWrapper.style.pointerEvents = 'none';
-      } else {
-        brand.style.transform = 'translateY(0)';
-        brandWrapper.style.pointerEvents = 'all';
-      }
-    });
-  }, []);
 
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
@@ -139,7 +145,14 @@ const RootIndex = ({ data }) => {
           </section>
         </div>
       )}
-      {<Lightbox projects={projects} />}
+      {isLightBoxOpen && (
+        <Lightbox
+          projects={projects}
+          setIsLightBoxOpen={setIsLightBoxOpen}
+          lightboxIndex={lightboxIndex}
+          setLightboxIndex={setLightboxIndex}
+        />
+      )}
     </Layout>
   );
 };
