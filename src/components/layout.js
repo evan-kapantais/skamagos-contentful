@@ -11,26 +11,30 @@ const Template = ({ children, setIsMenuOpen }) => {
 
   // Add mousemove event listener
   useEffect(() => {
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('scroll', handleScroll);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    document.body.addEventListener('mouseenter', handleMouseEnter);
+    document.body.addEventListener('mousemove', handleMouseMove);
+    document.body.addEventListener('scroll', handleScroll);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
   }, []);
 
   // Adjust cursor size on mouse leave
   function handleMouseLeave() {
+    if (!cursor.current) return;
+
     cursor.current.style.width = 0;
     cursor.current.style.height = 0;
   }
 
   // Remove cursor style attr on mouse enter
   function handleMouseEnter() {
-    cursor.current.removeAttribute('style');
+    cursor.current?.removeAttribute('style');
   }
 
   // Position cursor on mousemove
   function handleMouseMove(e) {
     handleMouseEnter();
+
+    if (!cursor.current) return;
 
     const cursorRect = cursor.current.getBoundingClientRect();
     const cursorWidth = cursorRect.width;
