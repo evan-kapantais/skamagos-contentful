@@ -8,6 +8,7 @@ import Categories from '../components/Categories';
 import SidebarFooter from '../components/SidebarFooter';
 import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
+import Sidebar from '../components/Sidebar';
 
 const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,22 +27,6 @@ const RootIndex = ({ data }) => {
         .map((p) => p.category)
         .filter((value, index, array) => array.indexOf(value) === index)
     );
-  }, []);
-
-  // Hide the brand on scroll
-  useEffect(() => {
-    const brandWrapper = document.querySelector('.brand-wrapper');
-    const brand = document.querySelector('.wild-brand');
-
-    window.addEventListener('scroll', () => {
-      if (typeof window !== 'undefined' && window.scrollY > 100) {
-        brand.style.transform = 'translateY(100%)';
-        brandWrapper.style.pointerEvents = 'none';
-      } else {
-        brand.style.transform = 'translateY(0)';
-        brandWrapper.style.pointerEvents = 'all';
-      }
-    });
   }, []);
 
   // Control document overflow
@@ -83,23 +68,15 @@ const RootIndex = ({ data }) => {
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
       <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <div className="brand-wrapper">
-        <Link to="/" className="wild-brand">
-          <h1>Skamagos</h1>
-        </Link>
-      </div>
       {(!projects || !categories) && <p>Loading content...</p>}
       {projects && categories && (
         <div className="index-container">
-          <aside className="sidebar">
-            <div></div>
-            <Categories
-              categories={categories}
-              filterProjects={filterProjects}
-            />
-            <SidebarFooter />
-          </aside>
+          <Sidebar />
           <section className="content">
+            <header className="content-header">
+              <h1>Konstantinos Skamagos</h1>
+              <p>Photography</p>
+            </header>
             <div className="project-thumbs__wrapper">
               <div className="project-thumbs__column">
                 <ul className="project-thumbs__list">

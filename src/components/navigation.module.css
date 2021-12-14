@@ -1,3 +1,15 @@
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  flex-shrink: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 4rem 2rem 2rem;
+}
+
 .navigation {
   display: flex;
   list-style: none;
@@ -5,44 +17,23 @@
 }
 
 .navigationItem {
-  position: relative;
-  cursor: none;
+  font-size: 0.9rem;
 }
 
 .navigationItem:not(:last-of-type) {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.arrow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 4rem;
-  width: fit-content;
-  line-height: 1;
+.sidebarFooter {
+  color: rgb(110, 110, 110);
+  white-space: nowrap;
 }
 
-.navigationItem a {
-  border-bottom: 1.5px solid transparent;
-  color: currentColor;
-  text-decoration: none;
+.sidebarFooter li {
+  display: inline-block;
+  font-size: 0.85rem;
 }
 
-.navigationItem a:hover {
-  border-bottom-color: var(--primary);
-  color: var(--primary);
-}
-
-@media (max-width: 767px) {
-  .logoLink > span:last-child {
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
+.sidebarFooter li:not(:last-of-type) {
+  margin-right: 0.5rem;
 }
