@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import './variables.css';
 import './global.css';
 import Seo from './seo';
+import Sidebar from './Sidebar';
 
 import * as styles from './layout.module.css';
 
@@ -64,6 +65,7 @@ const Template = ({ children, setIsMenuOpen }) => {
   return (
     <div className="layout">
       <Seo />
+      {/* <Sidebar /> */}
       <main>{children}</main>
       <div className={styles.cursor} ref={cursor}>
         <p className={styles.cursorText}></p>

@@ -1,86 +1,65 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
-import get from 'lodash/get';
 
 import Seo from '../components/seo';
 import Layout from '../components/layout';
 import Hero from '../components/hero';
-import Tags from '../components/tags';
 import * as styles from './blog-post.module.css';
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = get(this.props, 'data.contentfulBlogPost');
-    const previous = get(this.props, 'data.previous');
-    const next = get(this.props, 'data.next');
+const ProjectTemplate = ({ data }) => {
+  const project = data.contentfulProject;
+  const previous = data.previous;
+  const next = data.next;
 
-    return (
-      <Layout location={this.props.location}>
-        <Seo
-          title={post.title}
-          description={post.description.childMarkdownRemark.excerpt}
-          image={`http:${post.heroImage.resize.src}`}
-        />
-        <Hero
-          image={post.heroImage?.gatsbyImageData}
-          title={post.title}
-          content={post.description?.childMarkdownRemark?.excerpt}
-        />
-        <div className={styles.container}>
-          <span className={styles.meta}>
-            {post.author?.name} &middot;{' '}
-            <time dateTime={post.rawDate}>{post.publishDate}</time> –{' '}
-            {post.body?.childMarkdownRemark?.timeToRead} minute read
-          </span>
-          <div className={styles.article}>
-            <div
-              className={styles.body}
-              dangerouslySetInnerHTML={{
-                __html: post.body?.childMarkdownRemark?.html,
-              }}
-            />
-            <Tags tags={post.tags} />
-            {(previous || next) && (
-              <nav>
-                <ul className={styles.articleNavigation}>
-                  {previous && (
-                    <li>
-                      <Link to={`/blog/${previous.slug}`} rel="prev">
-                        ← {previous.title}
-                      </Link>
-                    </li>
-                  )}
-                  {next && (
-                    <li>
-                      <Link to={`/blog/${next.slug}`} rel="next">
-                        {next.title} →
-                      </Link>
-                    </li>
-                  )}
-                </ul>
-              </nav>
-            )}
-          </div>
+  return (
+    <Layout location={window.location}>
+      <Seo
+        title={project.title}
+        image={`http:${project.heroImage.resize.src}`}
+      />
+      <Hero image={project.heroImage?.gatsbyImageData} title={project.title} />
+      <div className={styles.container}>
+        <span className={styles.meta}>
+          <time dateTime={project.rawDate}>{project.publishDate}</time>
+        </span>
+        <div className={styles.article}>
+          {(previous || next) && (
+            <nav>
+              <ul className={styles.articleNavigation}>
+                {previous && (
+                  <li>
+                    <Link to={`/${previous.slug}`} rel="prev">
+                      ← {previous.title}
+                    </Link>
+                  </li>
+                )}
+                {next && (
+                  <li>
+                    <Link to={`/${next.slug}`} rel="next">
+                      {next.title} →
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </nav>
+          )}
         </div>
-      </Layout>
-    );
-  }
-}
+      </div>
+    </Layout>
+  );
+};
 
-export default BlogPostTemplate;
+export default ProjectTemplate;
 
 export const pageQuery = graphql`
   query ProjectBySlug(
     $slug: String!
-    $previousPostSlug: String
-    $nextPostSlug: String
+    $previousProjectSlug: String
+    $nextProjectSlug: String
   ) {
-    contentfulBlogPost(slug: { eq: $slug }) {
+    contentfulProject(slug: { eq: $slug }) {
       slug
       title
-      author {
-        name
-      }
       publishDate(formatString: "MMMM Do, YYYY")
       rawDate: publishDate
       heroImage {
@@ -89,24 +68,12 @@ export const pageQuery = graphql`
           src
         }
       }
-      body {
-        childMarkdownRemark {
-          html
-          timeToRead
-        }
-      }
-      tags
-      description {
-        childMarkdownRemark {
-          excerpt
-        }
-      }
     }
-    previous: contentfulBlogPost(slug: { eq: $previousPostSlug }) {
+    previous: contentfulProject(slug: { eq: $previousProjectSlug }) {
       slug
       title
     }
-    next: contentfulBlogPost(slug: { eq: $nextPostSlug }) {
+    next: contentfulProject(slug: { eq: $nextProjectSlug }) {
       slug
       title
     }
