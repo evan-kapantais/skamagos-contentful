@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import Layout from '../components/layout';
-import Menu from '../components/Menu';
 import ProjectTile from '../components/ProjectTile';
-import Categories from '../components/Categories';
-import SidebarFooter from '../components/SidebarFooter';
 import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
-import Sidebar from '../components/Sidebar';
 
 const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [projects, setProjects] = useState(null);
-  const [categories, setCategories] = useState(null);
 
   const fetchedProjects = data.allContentfulProject.nodes;
 
   // Set projects and categories
   useEffect(() => {
     setProjects(fetchedProjects);
-    setCategories(
-      fetchedProjects
-        .map((p) => p.category)
-        .filter((value, index, array) => array.indexOf(value) === index)
-    );
   }, []);
 
   // Control document overflow
@@ -34,6 +24,43 @@ const RootIndex = ({ data }) => {
     if (isLightBoxOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'auto';
   }, [isLightBoxOpen]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const tiles = document.querySelectorAll('.tile');
+
+      console.log(tiles);
+
+      for (const tile of tiles) {
+        const offsetTop = tile.getBoundingClientRect().top;
+
+        if (offsetTop < window.innerHeight) {
+          tile.style.transform = 'translateY(0)';
+          tile.style.opacity = 1;
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('scroll', showTiles);
+  }, []);
+
+  function showTiles(e) {
+    const tiles = document.querySelectorAll('.tile');
+
+    for (const tile of tiles) {
+      const offsetTop = tile.getBoundingClientRect().top;
+
+      if (offsetTop < window.innerHeight) {
+        tile.style.transform = 'translateY(0)';
+        tile.style.opacity = 1;
+      } else {
+        tile.style.transform = 'translateY(2rem)';
+        tile.style.opacity = 0;
+      }
+    }
+  }
 
   const column1 = [];
   const column2 = [];
@@ -49,14 +76,6 @@ const RootIndex = ({ data }) => {
     }
   }
 
-  function filterProjects(category) {
-    if (category === 'All') return setProjects(fetchedProjects);
-
-    setProjects([
-      ...fetchedProjects.filter((project) => project.category === category),
-    ]);
-  }
-
   function showLightbox(e) {
     const idsArray = projects.map((project) => project.contentful_id);
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
@@ -67,11 +86,9 @@ const RootIndex = ({ data }) => {
 
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
-      <Menu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      {(!projects || !categories) && <p>Loading content...</p>}
-      {projects && categories && (
+      {!projects && <p>Loading content...</p>}
+      {projects && (
         <div className="index-container">
-          <Sidebar />
           <section className="content">
             <header className="content-header">
               <h1>Konstantinos Skamagos</h1>

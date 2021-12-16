@@ -23,7 +23,7 @@ const Sidebar = () => {
         <aside className={styles.sidebar}>
           <header>
             <h1>
-              <Link to="/">Skamagos</Link>
+              <Link to="/index01">Skamagos</Link>
             </h1>
           </header>
           <nav role="navigation" aria-label="Main">
