@@ -3,12 +3,15 @@ import * as styles from './lightbox.module.css';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const Lightbox = (props) => {
-  const { projects, setIsLightBoxOpen, lightboxIndex, setLightboxIndex } =
-    props;
+  const { images, setIsLightBoxOpen, lightboxIndex, setLightboxIndex } = props;
 
   const cursorRef = useRef(null);
 
   function handleClick(e) {
+    if (images.length === 1) {
+      return setIsLightBoxOpen(false);
+    }
+
     const isTargetImage = e.target.className !== styles.lightbox;
     const nextArea = e.clientX > window.innerWidth / 2;
 
@@ -16,12 +19,12 @@ const Lightbox = (props) => {
 
     nextArea &&
       setLightboxIndex(
-        lightboxIndex === projects.length - 1 ? 0 : lightboxIndex + 1
+        lightboxIndex === images.length - 1 ? 0 : lightboxIndex + 1
       );
 
     !nextArea &&
       setLightboxIndex(
-        lightboxIndex === 0 ? projects.length - 1 : lightboxIndex - 1
+        lightboxIndex === 0 ? images.length - 1 : lightboxIndex - 1
       );
   }
 
@@ -36,12 +39,11 @@ const Lightbox = (props) => {
       e.clientX - textRect.width / 2
     }px, ${e.clientY - textRect.height}px)`;
 
-    if (isTargetImage) {
-      cursorRef.current.textContent = '✕ Close';
-    } else {
-      if (nextArea) cursorRef.current.textContent = 'Next →';
-      if (!nextArea) cursorRef.current.textContent = '← Previous';
-    }
+    if (images.length === 1) return (cursorRef.current.textContent = '✕ Close');
+
+    if (isTargetImage) return (cursorRef.current.textContent = '✕ Close');
+    if (nextArea) cursorRef.current.textContent = 'Next →';
+    if (!nextArea) cursorRef.current.textContent = '← Previous';
   }
 
   return (
@@ -51,7 +53,7 @@ const Lightbox = (props) => {
       onMouseMove={moveCursor}
     >
       <GatsbyImage
-        image={projects[lightboxIndex].heroImage.gatsbyImageData}
+        image={images[lightboxIndex].gatsbyImageData}
         alt="project image"
         className={styles.image}
       />

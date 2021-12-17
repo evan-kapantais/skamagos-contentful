@@ -24,10 +24,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   padding: 4rem 2rem;
+  margin-bottom: 10rem;
 }
 
 .image {
-  /* width: 400px; */
+  cursor: zoom-in;
 }
 
 .image:nth-child(even) {

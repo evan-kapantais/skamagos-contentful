@@ -8,8 +8,6 @@ import Footer from '../components/footer';
 
 const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(null);
   const [projects, setProjects] = useState(null);
 
   const fetchedProjects = data.allContentfulProject.nodes;
@@ -19,17 +17,10 @@ const RootIndex = ({ data }) => {
     setProjects(fetchedProjects);
   }, []);
 
-  // Control document overflow
-  useEffect(() => {
-    if (isLightBoxOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'auto';
-  }, [isLightBoxOpen]);
-
+  // Show tiles already in viewport
   useEffect(() => {
     setTimeout(() => {
       const tiles = document.querySelectorAll('.tile');
-
-      console.log(tiles);
 
       for (const tile of tiles) {
         const offsetTop = tile.getBoundingClientRect().top;
@@ -42,10 +33,12 @@ const RootIndex = ({ data }) => {
     });
   }, []);
 
+  // Add scrolling event listener
   useEffect(() => {
     document.addEventListener('scroll', showTiles);
   }, []);
 
+  // Animate tiles on scroll
   function showTiles(e) {
     const tiles = document.querySelectorAll('.tile');
 
@@ -76,14 +69,6 @@ const RootIndex = ({ data }) => {
     }
   }
 
-  function showLightbox(e) {
-    const idsArray = projects.map((project) => project.contentful_id);
-    const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
-
-    setLightboxIndex(elementPosition);
-    setIsLightBoxOpen(true);
-  }
-
   return (
     <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
       {!projects && <p>Loading content...</p>}
@@ -101,7 +86,6 @@ const RootIndex = ({ data }) => {
                     <ProjectTile
                       key={project.contentful_id}
                       project={project}
-                      showLightbox={showLightbox}
                     />
                   ))}
                 </ul>
@@ -114,7 +98,6 @@ const RootIndex = ({ data }) => {
                         <ProjectTile
                           key={project.contentful_id}
                           project={project}
-                          showLightbox={showLightbox}
                         />
                       )
                   )}
@@ -128,7 +111,6 @@ const RootIndex = ({ data }) => {
                         <ProjectTile
                           key={project.contentful_id}
                           project={project}
-                          showLightbox={showLightbox}
                         />
                       )
                   )}
@@ -138,14 +120,6 @@ const RootIndex = ({ data }) => {
             <Footer />
           </section>
         </div>
-      )}
-      {isLightBoxOpen && (
-        <Lightbox
-          projects={projects}
-          setIsLightBoxOpen={setIsLightBoxOpen}
-          lightboxIndex={lightboxIndex}
-          setLightboxIndex={setLightboxIndex}
-        />
       )}
     </Layout>
   );

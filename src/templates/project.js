@@ -1,16 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, graphql } from 'gatsby';
-
-import Seo from '../components/seo';
-import Layout from '../components/layout';
-import Hero from '../components/hero';
-import * as styles from './blog-post.module.css';
 import { GatsbyImage } from 'gatsby-plugin-image';
+
+import Layout from '../components/layout';
+import Seo from '../components/seo';
+import Hero from '../components/hero';
+import Lightbox from '../components/Lightbox';
+
+import * as styles from './project.module.css';
 
 const ProjectTemplate = ({ data }) => {
   const project = data.contentfulProject;
   const previous = data.previous;
   const next = data.next;
+  const images = project.images;
+
+  const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  // Control document overflow
+  useEffect(() => {
+    if (isLightBoxOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+  }, [isLightBoxOpen]);
+
+  function showLightbox(e) {
+    const idsArray = images.map((image) => image.contentful_id);
+    const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
+    setLightboxIndex(elementPosition);
+    setIsLightBoxOpen(true);
+  }
 
   return (
     <Layout location={window.location}>
@@ -27,11 +46,13 @@ const ProjectTemplate = ({ data }) => {
         {project.images?.map((image, i) => (
           <GatsbyImage
             className={styles.image}
+            data-key={image.contentful_id}
             key={i}
             image={image?.gatsbyImageData}
             objectFit="contain"
             title={project.title}
             alt={project.title}
+            onClick={showLightbox}
           />
         ))}
       </div>
@@ -54,6 +75,14 @@ const ProjectTemplate = ({ data }) => {
             )}
           </ul>
         </nav>
+      )}
+      {isLightBoxOpen && (
+        <Lightbox
+          images={images}
+          setIsLightBoxOpen={setIsLightBoxOpen}
+          lightboxIndex={lightboxIndex}
+          setLightboxIndex={setLightboxIndex}
+        />
       )}
     </Layout>
   );
@@ -79,6 +108,7 @@ export const pageQuery = graphql`
         }
       }
       images {
+        contentful_id
         gatsbyImageData(placeholder: BLURRED)
       }
     }
