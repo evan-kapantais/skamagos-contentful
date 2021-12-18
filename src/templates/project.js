@@ -4,7 +4,6 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-import Hero from '../components/hero';
 import Lightbox from '../components/Lightbox';
 
 import * as styles from './project.module.css';
@@ -13,7 +12,10 @@ const ProjectTemplate = ({ data }) => {
   const project = data.contentfulProject;
   const previous = data.previous;
   const next = data.next;
-  const images = project.images;
+  const images = project.images ? project.images : [];
+  const hero = project.heroImage;
+
+  const allImages = [hero, ...images];
 
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -25,7 +27,7 @@ const ProjectTemplate = ({ data }) => {
   }, [isLightBoxOpen]);
 
   function showLightbox(e) {
-    const idsArray = images.map((image) => image.contentful_id);
+    const idsArray = allImages.map((image) => image.contentful_id);
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
     setLightboxIndex(elementPosition);
     setIsLightBoxOpen(true);
@@ -33,15 +35,19 @@ const ProjectTemplate = ({ data }) => {
 
   return (
     <Layout location={window.location}>
-      <Seo
-        title={project.title}
-        image={`http:${project.heroImage.resize.src}`}
-      />
+      <Seo title={project.title} image={project.heroImage.seoSrc.src} />
       <header className="project-header">
         <h1>{project.title}</h1>
         <time dateTime={project.rawDate}>{project.publishDate}</time>
       </header>
-      <Hero image={project.heroImage?.gatsbyImageData} title={project.title} />
+      <GatsbyImage
+        className={styles.hero}
+        title={project.title}
+        alt={project.title}
+        image={hero.gatsbyImageData}
+        onClick={showLightbox}
+        data-key={hero.contentful_id}
+      />
       <div className={styles.images}>
         {project.images?.map((image, i) => (
           <GatsbyImage
@@ -78,7 +84,7 @@ const ProjectTemplate = ({ data }) => {
       )}
       {isLightBoxOpen && (
         <Lightbox
-          images={images}
+          allImages={allImages}
           setIsLightBoxOpen={setIsLightBoxOpen}
           lightboxIndex={lightboxIndex}
           setLightboxIndex={setLightboxIndex}
@@ -102,14 +108,22 @@ export const pageQuery = graphql`
       publishDate(formatString: "MMMM Do, YYYY")
       rawDate: publishDate
       heroImage {
+        contentful_id
         gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
-        resize(height: 630, width: 1200) {
+        resize: resize {
+          src
+          aspectRatio
+        }
+        seoSrc: resize(height: 630, width: 1200) {
           src
         }
       }
       images {
         contentful_id
         gatsbyImageData(placeholder: BLURRED)
+        resize {
+          aspectRatio
+        }
       }
     }
     previous: contentfulProject(slug: { eq: $previousProjectSlug }) {

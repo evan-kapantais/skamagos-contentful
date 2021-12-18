@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useInput } from '../hooks/inputs';
+import Seo from '../components/seo';
+
 import * as styles from './contact.module.css';
 
 const ContactPage = () => {
@@ -32,14 +33,23 @@ const ContactPage = () => {
   };
 
   useEffect(() => {
-    rotateDeco();
+    // rotateDeco();
     showSubmit();
   }, [name, email, subject, message]);
 
   return (
     <div className={styles.page}>
-      <div className={styles.deco} ref={decoRef}></div>
+      <Seo title="Contact" />
+      {/* <div className={styles.deco} ref={decoRef}></div> */}
       <div>
+        <p className={styles.par}>
+          If you have an idea for a project or just want to say hi, feel free to
+          email me at{' '}
+          <a href="mailto:konstantinos.skam@gmail.com">
+            konstantinos.skam@gmail.com
+          </a>{' '}
+          or use the form below.
+        </p>
         <form className={styles.form}>
           <div className={styles.formWrapper}>
             <section className={styles.left}>
@@ -99,7 +109,7 @@ const ContactPage = () => {
                   name="message"
                   id="message"
                   cols="30"
-                  rows="20"
+                  rows="10"
                   className={styles.textarea}
                   placeholder="I have an idea for a project"
                   required

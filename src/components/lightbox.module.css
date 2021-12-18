@@ -20,9 +20,10 @@
   left: 0;
   height: 100%;
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .image {
@@ -30,14 +31,12 @@
   flex-grow: 1;
 }
 
-.caption {
-  margin-top: 0.5rem;
+.landscape {
+  max-width: 800px;
 }
 
-.close {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+.portrait {
+  max-width: 450px;
 }
 
 .cursor {

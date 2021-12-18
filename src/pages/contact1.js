@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useInput } from '../hooks/inputs';
 import * as styles from './contact1.module.css';
 
 const ContactPage = () => {

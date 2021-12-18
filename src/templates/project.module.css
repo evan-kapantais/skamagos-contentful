@@ -19,6 +19,13 @@
   padding: var(--size-gutter) var(--size-gutter) calc(var(--size-gutter) * 2);
 }
 
+.hero {
+  margin: 0 auto;
+  position: relative;
+  width: 50%;
+  cursor: zoom-in;
+}
+
 .images {
   display: grid;
   grid-template-columns: 1fr 1fr;

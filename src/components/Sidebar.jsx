@@ -30,7 +30,13 @@ const Sidebar = () => {
             <ul className={styles.navigationList}>
               {data.allContentfulProject.edges.map(({ node }) => (
                 <li key={node.contentful_id} className={styles.navigationItem}>
-                  <Link to={`/${node.slug}`}>{node.title}</Link>
+                  <Link
+                    to={`/${node.slug}`}
+                    className={styles.link}
+                    activeClassName={styles.activeLink}
+                  >
+                    {node.title}
+                  </Link>
                 </li>
               ))}
             </ul>
