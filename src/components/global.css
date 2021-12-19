@@ -76,6 +76,13 @@ ol > li {
   margin: 0;
 }
 
+button,
+input[type='submit'] {
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .layout {
   position: relative;
 }

@@ -1,0 +1,41 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding: 2rem 5%;
+}
+
+.container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.grid {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  max-height: 100%;
+  max-width: 40%;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.image {
+  margin-bottom: 1rem;
+}
+
+.socialItem {
+  display: inline-block;
+  margin-right: 0.7rem;
+}
+
+.socialLink img {
+  width: 20px;
+}
