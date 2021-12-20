@@ -5,13 +5,40 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Lightbox from '../components/Lightbox';
+import Footer from '../components/footer';
 
 import * as styles from './project.module.css';
 
-const ProjectTemplate = ({ data }) => {
+const Header = ({ data }) => {
   const project = data.contentfulProject;
   const previous = data.previous;
   const next = data.next;
+
+  return (
+    <header className="project-header">
+      <div>
+        {previous && (
+          <Link to={`/${previous.slug}`} rel="prev" className={styles.navLink}>
+            ← {previous.title}
+          </Link>
+        )}
+      </div>
+      <div className={styles.meta}>
+        <h1>{project.title}</h1>
+      </div>
+      <div>
+        {next && (
+          <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
+            {next.title} →
+          </Link>
+        )}
+      </div>
+    </header>
+  );
+};
+
+const ProjectTemplate = ({ data }) => {
+  const project = data.contentfulProject;
   const images = project.images ? project.images : [];
   const hero = project.heroImage;
 
@@ -19,6 +46,42 @@ const ProjectTemplate = ({ data }) => {
 
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const lightboxProps = {
+    allImages,
+    setIsLightBoxOpen,
+    lightboxIndex,
+    setLightboxIndex,
+  };
+
+  // Add scrolling event listener
+  useEffect(() => {
+    document.addEventListener('scroll', showImages);
+  }, []);
+
+  // Animate hero image
+  useEffect(() => {
+    const hero = document.querySelector(`.${styles.hero}`);
+    setTimeout(() => {});
+    hero.style.opacity = 1;
+  }, []);
+
+  // Animate tiles on scroll
+  function showImages(e) {
+    const imgs = document.querySelectorAll(`.${styles.image}`);
+
+    for (const img of imgs) {
+      const offsetTop = img.getBoundingClientRect().top;
+
+      if (offsetTop < window.innerHeight) {
+        img.style.transform = 'translateY(0)';
+        img.style.opacity = 1;
+      } else {
+        img.style.transform = 'translateY(2rem)';
+        img.style.opacity = 0;
+      }
+    }
+  }
 
   // Control document overflow
   useEffect(() => {
@@ -36,10 +99,7 @@ const ProjectTemplate = ({ data }) => {
   return (
     <Layout location={window.location}>
       <Seo title={project.title} image={project.heroImage.seoSrc.src} />
-      <header className="project-header">
-        <h1>{project.title}</h1>
-        <time dateTime={project.rawDate}>{project.publishDate}</time>
-      </header>
+      <Header data={data} />
       <GatsbyImage
         className={styles.hero}
         title={project.title}
@@ -50,7 +110,7 @@ const ProjectTemplate = ({ data }) => {
       />
       {images.length < 2 ? (
         <div className={styles.singleColumn}>
-          {project.images.map((image, i) => (
+          {project.images?.map((image, i) => (
             <GatsbyImage
               className={styles.singleImage}
               image={image?.gatsbyImageData}
@@ -95,34 +155,8 @@ const ProjectTemplate = ({ data }) => {
           </div>
         </div>
       )}
-      {(previous || next) && (
-        <nav className={styles.navigation}>
-          <ul className={styles.articleNavigation}>
-            {previous && (
-              <li>
-                <Link to={`/${previous.slug}`} rel="prev">
-                  ← {previous.title}
-                </Link>
-              </li>
-            )}
-            {next && (
-              <li>
-                <Link to={`/${next.slug}`} rel="next">
-                  {next.title} →
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-      )}
-      {isLightBoxOpen && (
-        <Lightbox
-          allImages={allImages}
-          setIsLightBoxOpen={setIsLightBoxOpen}
-          lightboxIndex={lightboxIndex}
-          setLightboxIndex={setLightboxIndex}
-        />
-      )}
+      <Footer />
+      {isLightBoxOpen && <Lightbox {...lightboxProps} />}
     </Layout>
   );
 };

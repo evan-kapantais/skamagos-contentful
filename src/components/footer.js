@@ -4,11 +4,11 @@ import Container from './container';
 import * as styles from './footer.module.css';
 
 const Footer = () => (
-  <Container as="footer">
+  <footer className={styles.footer}>
     <div className={styles.container}>
       Designed and built by <a>Evan Kapantais</a>
     </div>
-  </Container>
+  </footer>
 );
 
 export default Footer;

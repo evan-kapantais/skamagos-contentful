@@ -85,6 +85,7 @@ input[type='submit'] {
 
 .layout {
   position: relative;
+  min-height: 100vh;
 }
 
 /* Main content */
@@ -96,6 +97,9 @@ input[type='submit'] {
 .content {
   flex-grow: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-x: hidden;
 }
 
@@ -105,10 +109,15 @@ input[type='submit'] {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+}
+
+.project-header {
   padding: 2rem;
 }
 
 .project-thumbs__wrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
   margin: 0 auto;

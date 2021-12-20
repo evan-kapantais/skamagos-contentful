@@ -1,7 +1,7 @@
 import { graphql, StaticQuery, Link } from 'gatsby';
 import React from 'react';
 
-import * as styles from './navigation.module.css';
+import * as styles from './sidebar.module.css';
 
 const Sidebar = () => {
   return (
@@ -23,7 +23,7 @@ const Sidebar = () => {
         <aside className={styles.sidebar}>
           <header>
             <h1>
-              <Link to="/index01">Skamagos</Link>
+              <Link to="/">Skamagos</Link>
             </h1>
           </header>
           <nav role="navigation" aria-label="Main">

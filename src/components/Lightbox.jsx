@@ -63,24 +63,11 @@ const Lightbox = (props) => {
     if (!nextArea) cursorRef.current.textContent = '← Previous';
   }
 
-  function handleKeyDown(e) {
-    console.log(e.key);
-
-    if (e.key === 'ArrowRight') {
-      setIndex(index === allImages.length - 1 ? 0 : index + 1);
-    }
-
-    if (e.key === 'ArrowLeft') {
-      setIndex(index === 0 ? allImages.length - 1 : index - 1);
-    }
-  }
-
   return (
     <div
       className={styles.lightbox}
       onClick={handleClick}
       onMouseMove={moveCursor}
-      onKeyDown={handleKeyDown}
     >
       {allImages.map((image, i) => (
         <div

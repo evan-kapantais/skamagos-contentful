@@ -12,12 +12,19 @@ const ContactPage = () => {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const subjectRef = useRef(null);
-  const messaageRef = useRef(null);
+  const messageRef = useRef(null);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+
+  // Adjust textarea height
+  useEffect(() => {
+    messageRef.current.style.height = message.length
+      ? messageRef.current.scrollHeight + 'px'
+      : 'auto';
+  }, [message]);
 
   return (
     <div className={styles.page}>
@@ -97,11 +104,11 @@ const ContactPage = () => {
                 Message <span>*</span>
               </label>
               <textarea
-                ref={messaageRef}
+                ref={messageRef}
                 name="message"
                 id="message"
                 cols="30"
-                rows="2"
+                rows="1"
                 className={styles.textarea}
                 placeholder="I have a project idea"
                 required

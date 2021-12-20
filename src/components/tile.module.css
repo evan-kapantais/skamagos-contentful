@@ -13,22 +13,3 @@
 .tile:hover .imageWrapper img {
   transform: scale(1.1);
 }
-
-.tile figcaption {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.tag {
-  color: rgb(0, 157, 255);
-  text-transform: lowercase;
-  opacity: 0;
-  transform: translateY(0.5rem);
-  transition: all 300ms ease;
-}
-
-.tile:hover .tag {
-  opacity: 1;
-  transform: translateY(0);
-}

@@ -1,6 +1,8 @@
-import * as React from 'react'
-import { Helmet } from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+import * as React from 'react';
+import { Helmet } from 'react-helmet';
+import { useStaticQuery, graphql } from 'gatsby';
+
+import favicon from '../images/favicon.jpg';
 
 const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
   const { site } = useStaticQuery(
@@ -14,10 +16,10 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
         }
       }
     `
-  )
+  );
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const metaDescription = description || site.siteMetadata.description;
+  const defaultTitle = site.siteMetadata?.title;
 
   return (
     <Helmet
@@ -69,8 +71,10 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
-  )
-}
+    >
+      <link rel="shortcut icon" href={favicon} type="image/x-icon" />
+    </Helmet>
+  );
+};
 
-export default Seo
+export default Seo;
