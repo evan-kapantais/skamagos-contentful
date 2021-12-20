@@ -13,7 +13,15 @@ const ProjectTile = ({ project }) => {
           loading="lazy"
           className={styles.imageWrapper}
         />
-        <p className={styles.title}>{project.title}</p>
+        <figcaption>
+          <p className={styles.title}>{project.title}</p>
+          <Link
+            to={`/tags/${project.category.toLowerCase()}`}
+            className={styles.tag}
+          >
+            #{project.category}
+          </Link>
+        </figcaption>
       </Link>
     </li>
   );

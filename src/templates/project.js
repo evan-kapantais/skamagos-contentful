@@ -48,20 +48,53 @@ const ProjectTemplate = ({ data }) => {
         onClick={showLightbox}
         data-key={hero.contentful_id}
       />
-      <div className={styles.images}>
-        {project.images?.map((image, i) => (
-          <GatsbyImage
-            className={styles.image}
-            data-key={image.contentful_id}
-            key={i}
-            image={image?.gatsbyImageData}
-            objectFit="contain"
-            title={project.title}
-            alt={project.title}
-            onClick={showLightbox}
-          />
-        ))}
-      </div>
+      {images.length < 2 ? (
+        <div className={styles.singleColumn}>
+          {project.images.map((image, i) => (
+            <GatsbyImage
+              className={styles.singleImage}
+              image={image?.gatsbyImageData}
+              data-key={image.contentful_Id}
+              key={i}
+              objectFit="contain"
+              title={project.title}
+              alt={project.title}
+              onClick={showLightbox}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className={styles.images}>
+          <div className={styles.column}>
+            {project.images?.slice(0, images.length / 2).map((image, i) => (
+              <GatsbyImage
+                className={styles.image}
+                data-key={image.contentful_id}
+                key={i}
+                image={image?.gatsbyImageData}
+                objectFit="contain"
+                title={project.title}
+                alt={project.title}
+                onClick={showLightbox}
+              />
+            ))}
+          </div>
+          <div className={styles.column}>
+            {project.images?.slice(images.length / 2).map((image, i) => (
+              <GatsbyImage
+                className={styles.image}
+                data-key={image.contentful_id}
+                key={i}
+                image={image?.gatsbyImageData}
+                objectFit="contain"
+                title={project.title}
+                alt={project.title}
+                onClick={showLightbox}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       {(previous || next) && (
         <nav className={styles.navigation}>
           <ul className={styles.articleNavigation}>
