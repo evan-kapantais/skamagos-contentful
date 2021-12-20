@@ -13,7 +13,7 @@ const ProjectTile = ({ project }) => {
           loading="lazy"
           className={styles.imageWrapper}
         />
-        <p className={styles.title}>{project.title}</p>
+        <p className={styles.title}>- {project.title}</p>
       </Link>
     </li>
   );
