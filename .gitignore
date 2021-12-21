@@ -75,3 +75,7 @@ Thumbs.db
 
 # Tasks file
 tasks.md
+
+# Test page
+/src/pages/test.js
+/src/pages/test.module.css

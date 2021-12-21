@@ -5,13 +5,95 @@ import Layout from '../components/layout';
 import ProjectTile from '../components/ProjectTile';
 import Footer from '../components/footer';
 
+import * as styles from './indexGrid.module.css';
+
+const LargeGrid = ({ projects }) => {
+  const column1 = [];
+  const column2 = [];
+  const column3 = [];
+
+  for (let i = 0; i < projects.length; i = i + 3) {
+    if (i < projects.length) {
+      typeof projects[i] !== 'undefined' && column1.push(projects[i]);
+      typeof projects[i + 1] !== 'undefined' && column2.push(projects[i + 1]);
+      typeof projects[i + 2] !== 'undefined' && column3.push(projects[i + 2]);
+    }
+  }
+
+  return (
+    <>
+      <div className={styles.column}>
+        <ul>
+          {column1.map((project) => (
+            <ProjectTile key={project.contentful_id} project={project} />
+          ))}
+        </ul>
+      </div>
+      <div className={styles.column}>
+        <ul>
+          {column2.map((project) => (
+            <ProjectTile key={project.contentful_id} project={project} />
+          ))}
+        </ul>
+      </div>
+      <div className={styles.column}>
+        <ul>
+          {column3.map((project) => (
+            <ProjectTile key={project.contentful_id} project={project} />
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
+
+const MediumGrid = ({ projects }) => {
+  const column1 = [];
+  const column2 = [];
+
+  for (let i = 0; i < projects.length; i = i + 2) {
+    if (i < projects.length) {
+      typeof projects[i] !== 'undefined' && column1.push(projects[i]);
+      typeof projects[i + 1] !== 'undefined' && column2.push(projects[i + 1]);
+    }
+  }
+
+  return (
+    <>
+      <div className={`${styles.columnMedium} ${styles.column}`}>
+        <ul>
+          {column1.map((project) => (
+            <ProjectTile key={project.contentful_id} project={project} />
+          ))}
+        </ul>
+      </div>
+      <div className={`${styles.columnMedium} ${styles.column}`}>
+        <ul>
+          {column2.map((project) => (
+            <ProjectTile key={project.contentful_id} project={project} />
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
+
+const SmallGrid = ({ projects }) => (
+  <div className={styles.columnSmall}>
+    <ul>
+      {projects.map((project) => (
+        <ProjectTile key={project.contentful_id} project={project} />
+      ))}
+    </ul>
+  </div>
+);
+
 const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [projects, setProjects] = useState(null);
 
+  // handle this in an effect
   const fetchedProjects = data.allContentfulProject.nodes;
-
-  const windowExists = typeof window !== 'undefined';
 
   // Set projects and categories
   useEffect(() => {
@@ -37,7 +119,6 @@ const RootIndex = ({ data }) => {
   // Register event listeners
   useEffect(() => {
     document.addEventListener('scroll', showTiles);
-    windowExists && window.addEventListener('resize', handleResize);
   }, []);
 
   // Animate tiles on scroll
@@ -57,21 +138,17 @@ const RootIndex = ({ data }) => {
     }
   }
 
-  const column1 = [];
-  const column2 = [];
-  const column3 = [];
+  function getLayout() {
+    const windowExists = typeof window !== 'undefined';
+    const largeScreen = windowExists && window.innerWidth >= 700;
+    const mediumScreen =
+      windowExists && window.innerWidth < 700 && window.innerWidth >= 450;
+    const smallScreen = windowExists && window.innerWidth < 450;
 
-  if (projects) {
-    for (let i = 0; i < projects.length; i = i + 3) {
-      if (i < projects.length) {
-        column1.push(projects[i]);
-        column2.push(projects[i + 1]);
-        column3.push(projects[i + 2]);
-      }
-    }
+    if (largeScreen) return <LargeGrid projects={projects} />;
+    if (mediumScreen) return <MediumGrid projects={projects} />;
+    if (smallScreen) return <SmallGrid projects={projects} />;
   }
-
-  function handleResize() {}
 
   return (
     <Layout
@@ -87,52 +164,7 @@ const RootIndex = ({ data }) => {
               <h1>Konstantinos Skamagos</h1>
               <p>Photography</p>
             </header>
-            {windowExists && window.innerWidth < 700 ? (
-              <ul>
-                {projects?.map((project, index) => (
-                  <ProjectTile key={index} project={project} />
-                ))}
-              </ul>
-            ) : (
-              <div className="project-thumbs__wrapper">
-                <div className="project-thumbs__column">
-                  <ul>
-                    {column1.map((project) => (
-                      <ProjectTile
-                        key={project.contentful_id}
-                        project={project}
-                      />
-                    ))}
-                  </ul>
-                </div>
-                <div className="project-thumbs__column">
-                  <ul>
-                    {column2.map(
-                      (project) =>
-                        typeof project !== 'undefined' && (
-                          <ProjectTile
-                            key={project.contentful_id}
-                            project={project}
-                          />
-                        )
-                    )}
-                  </ul>
-                </div>
-                <div className="project-thumbs__column">
-                  <ul>
-                    {column3.map(
-                      (project) =>
-                        typeof project !== 'undefined' && (
-                          <ProjectTile
-                            key={project.contentful_id}
-                            project={project}
-                          />
-                        )
-                    )}
-                  </ul>
-                </div>
-              </div>
-            )}
+            <div className="project-thumbs__wrapper">{getLayout()}</div>
             <Footer />
           </section>
         </div>
@@ -145,11 +177,12 @@ export default RootIndex;
 
 export const pageQuery = graphql`
   query Index01Query {
-    allContentfulProject(sort: { fields: publishDate, order: DESC }) {
+    allContentfulProject(sort: { fields: featured, order: DESC }) {
       nodes {
         contentful_id
         title
         category
+        featured
         slug
         publishDate(formatString: "MMMM Do, YYYY")
         heroImage {

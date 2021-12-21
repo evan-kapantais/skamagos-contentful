@@ -1,0 +1,15 @@
+.column {
+  width: calc(100% / 3);
+}
+
+.columnMedium {
+  width: calc(100% / 2);
+}
+
+.columnSmall {
+  width: 100%;
+}
+
+.column:nth-child(odd) {
+  margin-top: 6rem;
+}

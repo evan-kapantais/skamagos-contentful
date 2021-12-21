@@ -123,14 +123,6 @@ input[type='submit'] {
   margin: 0 auto;
 }
 
-.project-thumbs__column {
-  width: calc(100% / 3);
-}
-
-.project-thumbs__column:nth-child(odd) {
-  margin-top: 6rem;
-}
-
 .gatsby-image-wrapper img {
   transition: all 2s ease !important;
 }
