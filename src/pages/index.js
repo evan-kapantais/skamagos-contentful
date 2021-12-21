@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 
 import Layout from '../components/layout';
 import ProjectTile from '../components/ProjectTile';
@@ -161,8 +161,13 @@ const RootIndex = ({ data }) => {
         <div className="index-container">
           <section className="content">
             <header className="content-header">
-              <h1>Konstantinos Skamagos</h1>
-              <p>Photography</p>
+              <p>Projects</p>
+              <Link to="/">
+                <h1>Skamagos</h1>
+              </Link>
+              <nav>
+                <Link to="/contact">Contact</Link>
+              </nav>
             </header>
             <div className="project-thumbs__wrapper">{getLayout()}</div>
             <Footer />

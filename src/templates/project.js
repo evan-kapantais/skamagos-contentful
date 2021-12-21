@@ -16,17 +16,14 @@ const Header = ({ data }) => {
 
   return (
     <header className="project-header">
+      <h1>{project.title}</h1>
       <div>
         {previous && (
           <Link to={`/${previous.slug}`} rel="prev" className={styles.navLink}>
             ← {previous.title}
           </Link>
         )}
-      </div>
-      <div className={styles.meta}>
-        <h1>{project.title}</h1>
-      </div>
-      <div>
+        <span> | </span>
         {next && (
           <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
             {next.title} →
@@ -47,9 +44,6 @@ const ProjectTemplate = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-
-  const isSmallScreen =
-    typeof window !== 'undefined' && window.innerWidth < 700;
 
   const lightboxProps = {
     allImages,
@@ -116,7 +110,7 @@ const ProjectTemplate = ({ data }) => {
         onClick={showLightbox}
         data-key={hero.contentful_id}
       />
-      {images.length < 2 || isSmallScreen ? (
+      {images.length < 2 ? (
         <div className={styles.singleColumn}>
           {project.images?.map((image, i) => (
             <GatsbyImage

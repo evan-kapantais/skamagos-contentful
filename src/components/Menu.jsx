@@ -19,9 +19,6 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
     setTimeout(() => {
       setIsMenuOpen(false);
     }, 300);
-
-    if (e.currentTarget.href && typeof window !== 'undefined')
-      window.location.href = '/';
   }
 
   return (
@@ -42,7 +39,7 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
             ✕
           </button>
           <header>
-            <Link to="/" onClick={close}>
+            <Link to="/">
               <h1>Skamagos</h1>
             </Link>
           </header>
