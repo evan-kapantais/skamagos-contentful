@@ -11,6 +11,8 @@ const RootIndex = ({ data }) => {
 
   const fetchedProjects = data.allContentfulProject.nodes;
 
+  const windowExists = typeof window !== 'undefined';
+
   // Set projects and categories
   useEffect(() => {
     setProjects(fetchedProjects);
@@ -32,9 +34,10 @@ const RootIndex = ({ data }) => {
     });
   }, []);
 
-  // Add scrolling event listener
+  // Register event listeners
   useEffect(() => {
     document.addEventListener('scroll', showTiles);
+    windowExists && window.addEventListener('resize', handleResize);
   }, []);
 
   // Animate tiles on scroll
@@ -68,10 +71,14 @@ const RootIndex = ({ data }) => {
     }
   }
 
-  console.log(fetchedProjects);
+  function handleResize() {}
 
   return (
-    <Layout location={window.location} setIsMenuOpen={setIsMenuOpen}>
+    <Layout
+      location={window.location}
+      isMenuOpen={isMenuOpen}
+      setIsMenuOpen={setIsMenuOpen}
+    >
       {!projects && <p>Loading content...</p>}
       {projects && (
         <div className="index-container">
@@ -80,44 +87,52 @@ const RootIndex = ({ data }) => {
               <h1>Konstantinos Skamagos</h1>
               <p>Photography</p>
             </header>
-            <div className="project-thumbs__wrapper">
-              <div className="project-thumbs__column">
-                <ul className="project-thumbs__list">
-                  {column1.map((project) => (
-                    <ProjectTile
-                      key={project.contentful_id}
-                      project={project}
-                    />
-                  ))}
-                </ul>
+            {windowExists && window.innerWidth < 700 ? (
+              <ul>
+                {projects?.map((project, index) => (
+                  <ProjectTile key={index} project={project} />
+                ))}
+              </ul>
+            ) : (
+              <div className="project-thumbs__wrapper">
+                <div className="project-thumbs__column">
+                  <ul>
+                    {column1.map((project) => (
+                      <ProjectTile
+                        key={project.contentful_id}
+                        project={project}
+                      />
+                    ))}
+                  </ul>
+                </div>
+                <div className="project-thumbs__column">
+                  <ul>
+                    {column2.map(
+                      (project) =>
+                        typeof project !== 'undefined' && (
+                          <ProjectTile
+                            key={project.contentful_id}
+                            project={project}
+                          />
+                        )
+                    )}
+                  </ul>
+                </div>
+                <div className="project-thumbs__column">
+                  <ul>
+                    {column3.map(
+                      (project) =>
+                        typeof project !== 'undefined' && (
+                          <ProjectTile
+                            key={project.contentful_id}
+                            project={project}
+                          />
+                        )
+                    )}
+                  </ul>
+                </div>
               </div>
-              <div className="project-thumbs__column">
-                <ul className="project-thumbs__list">
-                  {column2.map(
-                    (project) =>
-                      typeof project !== 'undefined' && (
-                        <ProjectTile
-                          key={project.contentful_id}
-                          project={project}
-                        />
-                      )
-                  )}
-                </ul>
-              </div>
-              <div className="project-thumbs__column">
-                <ul className="project-thumbs__list">
-                  {column3.map(
-                    (project) =>
-                      typeof project !== 'undefined' && (
-                        <ProjectTile
-                          key={project.contentful_id}
-                          project={project}
-                        />
-                      )
-                  )}
-                </ul>
-              </div>
-            </div>
+            )}
             <Footer />
           </section>
         </div>

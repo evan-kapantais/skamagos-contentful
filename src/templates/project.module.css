@@ -77,3 +77,14 @@
   list-style: none;
   padding: 0;
 }
+
+@media only screen and (max-width: 700px) {
+  .hero {
+    width: 90%;
+  }
+
+  .singleColumn {
+    max-width: 90%;
+    transform: none;
+  }
+}
