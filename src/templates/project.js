@@ -26,7 +26,8 @@ const Header = ({ data, setIsMenuOpen }) => {
       <section className={styles.hbottom}>
         {previous && (
           <Link to={`/${previous.slug}`} rel="prev" className={styles.navLink}>
-            ← {previous.title}
+            ← <span className={styles.navTitle}>{previous.title}</span>{' '}
+            <span className={styles.navGen}>Prev</span>
           </Link>
         )}
         <p>
@@ -34,7 +35,8 @@ const Header = ({ data, setIsMenuOpen }) => {
         </p>
         {next && (
           <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
-            {next.title} →
+            <span className={styles.navTitle}>{next.title}</span>{' '}
+            <span className={styles.navGen}>Next</span> →
           </Link>
         )}
       </section>

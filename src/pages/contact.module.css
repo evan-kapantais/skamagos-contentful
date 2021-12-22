@@ -62,9 +62,9 @@
   margin-left: 15%;
 }
 
-h2 {
+.form h2 {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: calc(1.2rem + 1vw);
   color: #fff;
 }
 
@@ -78,6 +78,7 @@ h2 {
 
 .inputWrapper {
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .input,
@@ -145,7 +146,7 @@ h2 {
 }
 
 .bannerInner {
-  padding: 6rem 8rem 2.5rem 2.5rem;
+  padding: 6rem 5vw 2.5rem 2.5rem;
   background: var(--color-snow);
 }
 
@@ -181,4 +182,23 @@ h2 {
 
 .socialLink a {
   width: 100%;
+}
+
+@media (max-width: 1020px) {
+  .form {
+    margin-left: 5%;
+  }
+
+  .par {
+    margin-bottom: 2rem;
+  }
+
+  .row .inputWrapper:first-child {
+    margin-right: 1rem;
+  }
+
+  .input,
+  .textarea {
+    font-size: var(--font-small);
+  }
 }

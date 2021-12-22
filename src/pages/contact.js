@@ -131,15 +131,6 @@ const ContactPage = () => {
             <p>Call me</p>
             <a href="tel:+306978392849">+30 697 8392 849</a>
           </section>
-          <section>
-            <h2>ATH Studio</h2>
-            <address>
-              30 Evripidou Str. - 2nd Floor <br />
-              10551 <br />
-              Athens, Greece <br />
-              <a href="tel:+302106843492">+30 210 684 3492</a>
-            </address>
-          </section>
         </div>
         <section className={styles.social}>
           <a

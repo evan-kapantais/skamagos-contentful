@@ -4,17 +4,30 @@
   background: rgba(255, 255, 255, 1);
   position: fixed;
   top: 0;
-  padding: 2rem;
+  padding: 2rem 1rem;
   z-index: 999;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transform: translateX(-100%);
+  transform: translateY(4rem);
+  opacity: 0;
   transition: all 300ms ease-in-out;
+}
+
+.menu.shown {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .menu h1 {
   margin: 0;
+  font-size: calc(1rem + 2vw);
 }
 
 .menu section {
@@ -24,7 +37,7 @@
 
 .item {
   position: relative;
-  font-size: calc(0.8rem + 1vw);
+  font-size: calc(0.8rem + 0.5vw);
   margin-bottom: 0.8rem;
   cursor: pointer;
 }
@@ -44,18 +57,15 @@
   left: -50px;
 }
 
-.menu ul:last-child li {
-  margin-bottom: 0.8rem;
-  font-size: calc(0.8rem + 1vw);
-  color: grey;
-}
-
 .button {
-  position: absolute;
-  bottom: 4rem;
-  right: 2rem;
   background: none;
   border: none;
-  font-size: 2.5rem;
+  font-size: calc(1rem + 2vw);
   cursor: pointer;
+}
+
+.menu footer li {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.85rem;
 }

@@ -76,19 +76,13 @@ const Lightbox = (props) => {
           id={image.contentful_id}
           tabIndex={i}
         >
-          {image.isLandscape ? (
-            <GatsbyImage
-              image={image.gatsbyImageData}
-              alt="project image"
-              className={`${styles.image} ${styles.landscape}`}
-            />
-          ) : (
-            <GatsbyImage
-              image={image.gatsbyImageData}
-              alt="project image"
-              className={`${styles.image} ${styles.portrait}`}
-            />
-          )}
+          <GatsbyImage
+            image={image.gatsbyImageData}
+            alt="project image"
+            className={`${styles.image} ${
+              image.isLandscape ? styles.landscape : styles.portrait
+            }`}
+          />
         </div>
       ))}
       <p className={styles.cursor} ref={cursorRef}>

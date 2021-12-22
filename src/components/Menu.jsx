@@ -3,19 +3,19 @@ import { graphql, StaticQuery, Link } from 'gatsby';
 
 import * as styles from './menu.module.css';
 
-const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
+const Menu = ({ setIsMenuOpen }) => {
   const menuRef = useRef(null);
 
   // Animate menu in
   useEffect(() => {
     setTimeout(() => {
-      menuRef.current.style.transform = 'translateX(0)';
+      menuRef.current.classList.add(styles.shown);
     });
   }, []);
 
   // Animate menu out and set state
   function close(e) {
-    menuRef.current.style.transform = 'translateX(-100%)';
+    menuRef.current.classList.remove(styles.shown);
     setTimeout(() => {
       setIsMenuOpen(false);
     }, 300);
@@ -35,14 +35,15 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
       `}
       render={(data) => (
         <div className={styles.menu} ref={menuRef}>
-          <button type="button" className={styles.button} onClick={close}>
-            ✕
-          </button>
-          <header>
+          <header className={styles.header}>
             <Link to="/">
               <h1>Skamagos</h1>
             </Link>
+            <button type="button" className={styles.button} onClick={close}>
+              ✕
+            </button>
           </header>
+          <header></header>
           <section>
             <ul className={styles.list}>
               {data.allContentfulProject.nodes.map((node, i) => (
@@ -51,6 +52,8 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
                 </li>
               ))}
             </ul>
+          </section>
+          <footer>
             <ul>
               <li>
                 <a href="">Contact</a>
@@ -59,8 +62,7 @@ const Menu = ({ isMenuOpen, setIsMenuOpen }) => {
                 <a href="">Instagram</a>
               </li>
             </ul>
-          </section>
-          <footer></footer>
+          </footer>
         </div>
       )}
     />
