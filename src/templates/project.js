@@ -6,30 +6,38 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
+import Burger from '../components/Burger';
 
 import * as styles from './project.module.css';
 
-const Header = ({ data }) => {
+const Header = ({ data, setIsMenuOpen }) => {
   const project = data.contentfulProject;
   const previous = data.previous;
   const next = data.next;
 
   return (
-    <header className="project-header">
-      <h1>{project.title}</h1>
-      <div>
+    <header className={styles.header}>
+      <section className={styles.htop}>
+        <Link to="/">
+          <h1>Skamagos</h1>
+        </Link>
+        <Burger setIsMenuOpen={setIsMenuOpen} />
+      </section>
+      <section className={styles.hbottom}>
         {previous && (
           <Link to={`/${previous.slug}`} rel="prev" className={styles.navLink}>
             ← {previous.title}
           </Link>
         )}
-        <span> | </span>
+        <p>
+          <b>{project.title}</b>
+        </p>
         {next && (
           <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
             {next.title} →
           </Link>
         )}
-      </div>
+      </section>
     </header>
   );
 };
@@ -101,7 +109,7 @@ const ProjectTemplate = ({ data }) => {
       setIsMenuOpen={setIsMenuOpen}
     >
       <Seo title={project.title} image={project.heroImage.seoSrc.src} />
-      <Header data={data} />
+      <Header data={data} setIsMenuOpen={setIsMenuOpen} />
       <GatsbyImage
         className={styles.hero}
         title={project.title}

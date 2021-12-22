@@ -1,0 +1,44 @@
+.burger {
+  width: 32px;
+  padding: 0;
+  display: none;
+  border: none;
+  cursor: pointer;
+  mix-blend-mode: difference;
+}
+
+.dash {
+  width: 26px;
+  background: #fff;
+  height: 3px;
+  margin-bottom: 0.5rem;
+  border-radius: 0;
+  transition: all 200ms ease;
+}
+
+.dash:first-child {
+  width: 32px;
+}
+
+.dash:last-child {
+  width: 16px;
+  margin: 0;
+}
+
+.burger:hover .dash:first-child {
+  width: 18px;
+}
+
+.burger:hover .dash:nth-child(2) {
+  width: 8px;
+}
+
+.burger:hover .dash:last-child {
+  width: 26px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .burger {
+    display: block;
+  }
+}

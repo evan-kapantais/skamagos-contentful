@@ -15,15 +15,6 @@ const Layout = ({ children, isMenuOpen, setIsMenuOpen }) => {
       <main className="page-main">
         <Sidebar />
         <section className="content">{children}</section>
-        <button
-          type="button"
-          className="burger"
-          onClick={() => setIsMenuOpen(true)}
-        >
-          <div className="burger-dash" />
-          <div className="burger-dash" />
-          <div className="burger-dash" />
-        </button>
       </main>
     </div>
   );

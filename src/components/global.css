@@ -97,38 +97,22 @@ input[type='submit'] {
 .content {
   flex-grow: 1;
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
 }
-.content-header,
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
 
 .content-header {
   display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 1rem;
 }
 
 .content-header h1 {
-  font-size: 2.5rem;
-  margin: 0;
-}
-
-.content-header nav {
-  text-align: right;
-}
-
-.project-header {
-  padding: 2rem;
-  flex-wrap: wrap;
-}
-
-.project-header h1 {
+  font-size: calc(1rem + 2vw);
   margin: 0;
 }
 
@@ -143,68 +127,8 @@ input[type='submit'] {
   transition: all 2s ease !important;
 }
 
-/* Burger */
-
-.burger {
-  display: none;
-  position: fixed;
-  bottom: 4rem;
-  right: 2rem;
-  width: 32px;
-  border: none;
-  cursor: pointer;
-  mix-blend-mode: difference;
-}
-
-.burger-dash {
-  width: 26px;
-  background: #fff;
-  height: 3px;
-  margin-bottom: 0.5rem;
-  border-radius: 0;
-  transition: all 200ms ease;
-}
-
-.burger-dash:first-child {
-  width: 32px;
-}
-
-.burger-dash:last-child {
-  width: 16px;
-  margin: 0;
-}
-
-.burger:hover .burger-dash:first-child {
-  width: 18px;
-}
-
-.burger:hover .burger-dash:nth-child(2) {
-  width: 8px;
-}
-
-.burger:hover .burger-dash:last-child {
-  width: 26px;
-}
-
 @media (max-width: 1000px) {
   .content-header {
     display: flex;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  .burger {
-    display: block;
-  }
-}
-
-@media (max-width: 400px) {
-  .project-header {
-    flex-flow: column wrap;
-    justify-content: center;
-  }
-
-  .project-header h1 {
-    margin-bottom: 0.5rem;
   }
 }

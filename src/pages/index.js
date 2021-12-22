@@ -4,6 +4,7 @@ import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectTile from '../components/ProjectTile';
 import Footer from '../components/footer';
+import Burger from '../components/Burger';
 
 import * as styles from './indexGrid.module.css';
 
@@ -161,13 +162,10 @@ const RootIndex = ({ data }) => {
         <div className="index-container">
           <section className="content">
             <header className="content-header">
-              <p>Projects</p>
               <Link to="/">
                 <h1>Skamagos</h1>
               </Link>
-              <nav>
-                <Link to="/contact">Contact</Link>
-              </nav>
+              <Burger setIsMenuOpen={setIsMenuOpen} />
             </header>
             <div className="project-thumbs__wrapper">{getLayout()}</div>
             <Footer />

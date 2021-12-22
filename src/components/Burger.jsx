@@ -1,15 +1,17 @@
 import React from 'react';
 
+import * as styles from './burger.module.css';
+
 const Burger = ({ setIsMenuOpen }) => {
   return (
     <button
       type="button"
-      aria-label="menu button"
-      className="burger"
+      className={styles.burger}
       onClick={() => setIsMenuOpen(true)}
     >
-      <div className="burger__dash"></div>
-      <div className="burger__dash"></div>
+      <div className={styles.dash} />
+      <div className={styles.dash} />
+      <div className={styles.dash} />
     </button>
   );
 };

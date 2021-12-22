@@ -1,3 +1,42 @@
+:root {
+  --hbot-padding-bottom: 0;
+}
+
+.header {
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.htop,
+.hbottom {
+  display: flex;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.htop {
+  display: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hbottom {
+  padding: 2rem 2rem var(--hbot-padding-bottom) 2rem;
+}
+
+.hbottom p {
+  position: absolute;
+  bottom: var(--hbot-padding-bottom);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: calc(1rem + 2vw);
+}
+
 .hero {
   margin: 4rem auto;
   position: relative;
@@ -51,10 +90,16 @@
   color: var(--primary);
 }
 
+@media (max-width: 1000px) {
+  .htop {
+    display: flex;
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .hero {
     width: calc(100% - 4rem);
-    margin: 2rem auto 0 auto;
+    margin: 1rem auto 0 auto;
   }
 
   .images {
