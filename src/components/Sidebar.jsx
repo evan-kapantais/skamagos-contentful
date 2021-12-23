@@ -1,6 +1,8 @@
 import { graphql, StaticQuery, Link } from 'gatsby';
 import React from 'react';
 
+import Social from './Social';
+
 import * as styles from './sidebar.module.css';
 
 const Sidebar = () => {
@@ -44,21 +46,10 @@ const Sidebar = () => {
           <footer className={styles.sidebarFooter}>
             <ul>
               <li>
-                <Link to="/about">/ About</Link>
-              </li>
-              <li>
-                <Link to="/contact">/ Contact</Link>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/konstantinoskm_/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  / Instagram
-                </a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
+            <Social />
           </footer>
         </aside>
       )}

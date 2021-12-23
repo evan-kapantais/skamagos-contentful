@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'gatsby';
 
 import Seo from '../components/seo';
 
 import * as styles from './contact.module.css';
 
-import instagram from '../images/instagram-black.svg';
-import facebook from '../images/facebook-black.svg';
+import Social from '../components/Social';
 
 const ContactPage = () => {
   const nameRef = useRef(null);
@@ -136,29 +134,7 @@ const ContactPage = () => {
             </div>
             <div className={styles.via}>
               <p>Follow me</p>
-              <a
-                href="https://www.instagram.com/konstantinoskm_/"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialLink}
-              >
-                <img
-                  src={instagram}
-                  alt="instagram icon"
-                  aria-label="social icon"
-                />
-              </a>
-              <a
-                href="https://www.facebook.com/skamskami"
-                rel="noreferrer"
-                className={styles.socialLink}
-              >
-                <img
-                  src={facebook}
-                  alt="facebook icon"
-                  aria-label="social icon"
-                />
-              </a>
+              <Social />
             </div>
           </div>
         </section>

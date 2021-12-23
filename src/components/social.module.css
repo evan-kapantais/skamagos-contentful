@@ -1,0 +1,23 @@
+.list li {
+  display: inline-block;
+}
+
+.link {
+  display: inline-block;
+  line-height: 1;
+  width: 20px;
+}
+
+.link:first-child {
+  margin-right: 0.5rem;
+}
+
+.image {
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 200ms;
+}
+
+.link:hover .image {
+  transform: translateY(-3px);
+}

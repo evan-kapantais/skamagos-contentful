@@ -165,24 +165,6 @@
   color: var(--color-sub);
 }
 
-.socialLink {
-  display: inline-block;
-  width: 20px;
-  margin-right: 0.7rem;
-}
-
-.socialLink img {
-  transition: all 200ms;
-}
-
-.socialLink a {
-  width: 100%;
-}
-
-.socialLink:hover img {
-  transform: translateY(-3px);
-}
-
 .footer {
   display: none;
   padding: 2rem;
