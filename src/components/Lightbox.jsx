@@ -16,7 +16,7 @@ const Lightbox = (props) => {
   // Set incoming index
   useEffect(() => {
     setIndex(lightboxIndex);
-  }, []);
+  }, [lightboxIndex]);
 
   // Show index slide
   useEffect(() => {
@@ -69,12 +69,11 @@ const Lightbox = (props) => {
       onClick={handleClick}
       onMouseMove={moveCursor}
     >
-      {allImages.map((image, i) => (
+      {allImages.map((image) => (
         <div
           className={styles.slide}
           key={image.contentful_id}
           id={image.contentful_id}
-          tabIndex={i}
         >
           <GatsbyImage
             image={image.gatsbyImageData}

@@ -19,8 +19,8 @@ const ContactPage = ({ data }) => {
   return (
     <div className={styles.page}>
       <Seo title="Success" />
-      <header className={styles.header}>
-        <nav className={styles.nav}>
+      <header>
+        <nav>
           <ul>
             <li className={styles.socialItem}>
               <Link to="/">Home</Link>
@@ -34,7 +34,7 @@ const ContactPage = ({ data }) => {
           <p>I'll get back to you as soon as possible.</p>
         </div>
         <div className={styles.grid}>
-          <div className={styles.column}>
+          <div>
             {nodes1.map((node, i) => (
               <GatsbyImage
                 key={i}
@@ -44,7 +44,7 @@ const ContactPage = ({ data }) => {
               />
             ))}
           </div>
-          <div className={styles.column}>
+          <div>
             {nodes2.map((node, i) => (
               <GatsbyImage
                 key={i}
@@ -54,7 +54,7 @@ const ContactPage = ({ data }) => {
               />
             ))}
           </div>
-          <div className={styles.column}>
+          <div>
             {nodes3.map((node, i) => (
               <GatsbyImage
                 key={i}

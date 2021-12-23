@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 
 import * as styles from './menu.module.css';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 const Menu = ({ setIsMenuOpen }) => {
   const menuRef = useRef(null);
@@ -21,14 +22,43 @@ const Menu = ({ setIsMenuOpen }) => {
     }, 300);
   }
 
+  function showImage(e) {
+    const image = e.currentTarget.querySelector(`.${styles.image}`);
+
+    const listWidth = e.currentTarget.parentNode.getBoundingClientRect().width;
+
+    const itemRect = e.currentTarget.getBoundingClientRect();
+    const imageRect = image.getBoundingClientRect();
+
+    const itemIsTopside = itemRect.top < window.innerHeight / 2;
+
+    image.style.opacity = 1;
+
+    const translateX = `${e.clientX + listWidth}px`;
+    const translateY = itemIsTopside
+      ? `${e.clientY - itemRect.top - imageRect.height / 10}px`
+      : `${e.clientY - itemRect.top - (imageRect.height * 8) / 10}px`;
+
+    image.style.transform = `translate(${translateX}, ${translateY}`;
+  }
+
+  function hideImage(e) {
+    const image = e.currentTarget.querySelector(`.${styles.image}`);
+    image.style.opacity = 0;
+  }
+
   return (
     <StaticQuery
       query={graphql`
         query Projects {
           allContentfulProject(sort: { fields: publishDate, order: DESC }) {
             nodes {
+              contentful_id
               title
               slug
+              heroImage {
+                gatsbyImageData(width: 400)
+              }
             }
           }
         }
@@ -43,12 +73,24 @@ const Menu = ({ setIsMenuOpen }) => {
               ✕
             </button>
           </header>
-          <header></header>
           <section>
-            <ul className={styles.list}>
-              {data.allContentfulProject.nodes.map((node, i) => (
-                <li key={i} className={styles.item}>
-                  <Link to={`/${node.slug}`}>{node.title}</Link>
+            <ul>
+              {data.allContentfulProject.nodes.map((node) => (
+                <li
+                  key={node.contentful_id}
+                  className={styles.item}
+                  onMouseMove={showImage}
+                  onMouseLeave={hideImage}
+                >
+                  <Link to={`/${node.slug}`} className={styles.link}>
+                    {node.title}
+                  </Link>
+                  <GatsbyImage
+                    image={node.heroImage.gatsbyImageData}
+                    alt={node.title}
+                    title={node.title}
+                    className={styles.image}
+                  />
                 </li>
               ))}
             </ul>
@@ -56,10 +98,7 @@ const Menu = ({ setIsMenuOpen }) => {
           <footer>
             <ul>
               <li>
-                <a href="">Contact</a>
-              </li>
-              <li>
-                <a href="">Instagram</a>
+                <a href="/contact">Contact</a>
               </li>
             </ul>
           </footer>

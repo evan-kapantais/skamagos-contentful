@@ -47,7 +47,7 @@ const ContactPage = () => {
               Have a project in mind or just want to say hi? <br />
               I’d love to hear from you!
             </p>
-            <div className={styles.formWrapper}>
+            <div>
               <div className={styles.row}>
                 <div className={styles.inputWrapper}>
                   <label htmlFor="name" className={styles.label}>
@@ -140,7 +140,8 @@ const ContactPage = () => {
         </section>
       </div>
       <footer className={styles.footer}>
-        Designed and developed by <a href="#">Evan Kapantais</a>
+        Designed and developed by{' '}
+        <a href="https://www.evankapantais.com">Evan Kapantais</a>
       </footer>
       <h1 className={styles.deco}>Contact</h1>
     </div>

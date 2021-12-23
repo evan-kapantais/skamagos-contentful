@@ -99,7 +99,9 @@ const ProjectTemplate = ({ data }) => {
 
   function showLightbox(e) {
     const idsArray = allImages.map((image) => image.contentful_id);
+
     const elementPosition = idsArray.indexOf(e.currentTarget.dataset.key);
+
     setLightboxIndex(elementPosition);
     setIsLightBoxOpen(true);
   }
@@ -113,51 +115,51 @@ const ProjectTemplate = ({ data }) => {
       <Seo title={project.title} image={project.heroImage.seoSrc.src} />
       <Header data={data} setIsMenuOpen={setIsMenuOpen} />
       <GatsbyImage
-        className={styles.hero}
-        title={project.title}
-        alt={project.title}
-        image={hero.gatsbyImageData}
-        onClick={showLightbox}
         data-key={hero.contentful_id}
+        className={styles.hero}
+        image={hero.gatsbyImageData}
+        alt={project.title}
+        title={project.title}
+        onClick={showLightbox}
       />
       {images.length < 2 ? (
         <div className={styles.singleColumn}>
-          {project.images?.map((image, i) => (
+          {project.images?.map((image) => (
             <GatsbyImage
-              className={styles.singleImage}
-              image={image?.gatsbyImageData}
-              data-key={image.contentful_Id}
-              key={i}
-              objectFit="contain"
-              title={project.title}
+              data-key={image.contentful_id}
+              key={image.contentful_Id}
+              className={styles.image}
+              image={image.gatsbyImageData}
               alt={project.title}
+              title={project.title}
               onClick={showLightbox}
+              objectFit="contain"
             />
           ))}
         </div>
       ) : (
         <div className={styles.images}>
           <div className={styles.column}>
-            {project.images?.slice(0, images.length / 2).map((image, i) => (
+            {project.images?.slice(0, images.length / 2).map((image) => (
               <GatsbyImage
-                className={styles.image}
                 data-key={image.contentful_id}
-                key={i}
-                image={image?.gatsbyImageData}
-                objectFit="contain"
-                title={project.title}
+                key={image.contentful_Id}
+                className={styles.image}
+                image={image.gatsbyImageData}
                 alt={project.title}
+                title={project.title}
                 onClick={showLightbox}
+                objectFit="contain"
               />
             ))}
           </div>
           <div className={styles.column}>
-            {project.images?.slice(images.length / 2).map((image, i) => (
+            {project.images?.slice(images.length / 2).map((image) => (
               <GatsbyImage
-                className={styles.image}
                 data-key={image.contentful_id}
-                key={i}
-                image={image?.gatsbyImageData}
+                key={image.contentful_Id}
+                className={styles.image}
+                image={image.gatsbyImageData}
                 objectFit="contain"
                 title={project.title}
                 alt={project.title}
@@ -199,6 +201,7 @@ export const pageQuery = graphql`
       }
       images {
         contentful_id
+        title
         gatsbyImageData(placeholder: BLURRED)
         resize {
           aspectRatio
