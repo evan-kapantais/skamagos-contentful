@@ -49,6 +49,7 @@ h5,
 h6 {
   font-weight: var(--semibold);
   line-height: var(--dense);
+  margin: 0;
 }
 
 a {

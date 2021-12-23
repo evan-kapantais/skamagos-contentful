@@ -30,16 +30,26 @@
 
 .container {
   display: flex;
-  align-items: center;
   width: calc(100% - var(--page-gutter) * 2);
   height: calc(100% - var(--page-gutter) * 2);
+}
+
+.left {
+  flex: 2;
   background: rgba(36, 36, 36, 0.9);
   backdrop-filter: blur(1px);
 }
 
+.left,
+.right {
+  display: flex;
+  padding-top: 10vh;
+  justify-content: center;
+}
+
 .deco {
   position: absolute;
-  bottom: 0;
+  bottom: 9rem;
   right: 0;
   font-size: 14rem;
   letter-spacing: 20px;
@@ -57,15 +67,12 @@
   color: var(--color-sub);
 }
 
-.form {
-  max-width: 600px;
-  margin-left: 15%;
-}
-
-.form h2 {
+.form h2,
+.right h2 {
   font-weight: 700;
-  font-size: calc(1.2rem + 1vw);
+  font-size: calc(1rem + 1vw);
   color: #fff;
+  margin-bottom: 2.5rem;
 }
 
 .row {
@@ -87,7 +94,6 @@
   padding: 0.5rem 0;
   border: none;
   border-bottom: 1px solid var(--color-placeholder);
-  border-bottom: 1px solid transparent;
   background: none;
   outline: none;
   font-size: var(--font-size);
@@ -119,7 +125,6 @@
   display: block;
   user-select: none;
   font-size: var(--font-small);
-  margin-bottom: 0.5rem;
   color: var(--color-label);
 }
 
@@ -138,40 +143,26 @@
 
 /* Banner */
 
-.banner {
-  position: absolute;
-  top: 0;
-  right: 10%;
-  color: var(--color-black);
-}
-
-.bannerInner {
-  padding: 6rem 5vw 2.5rem 2.5rem;
+.right {
+  flex: 1;
+  height: 100%;
   background: var(--color-snow);
+  color: var(--color-black);
+  box-shadow: 0 5px 99px rgba(0, 0, 0, 0.2);
 }
 
-.banner section:first-child {
-  margin-bottom: 3rem;
-}
-
-.banner h2 {
-  font-size: var(--font-heading-small);
+.right h2 {
   color: inherit;
 }
 
-.banner p {
+.via {
+  margin-bottom: 2rem;
+}
+
+.right p {
   margin-bottom: 0.5rem;
   font-weight: 600;
   color: var(--color-sub);
-}
-
-.banner address a {
-  display: block;
-  margin-top: 0.65rem;
-}
-
-.social {
-  padding: 1rem 2.5rem;
 }
 
 .socialLink {
@@ -180,25 +171,143 @@
   margin-right: 0.7rem;
 }
 
+.socialLink img {
+  transition: all 200ms;
+}
+
 .socialLink a {
   width: 100%;
 }
 
+.socialLink:hover img {
+  transform: translateY(-3px);
+}
+
+.footer {
+  display: none;
+  padding: 2rem;
+  text-align: right;
+}
+
 @media (max-width: 1020px) {
-  .form {
-    margin-left: 5%;
+  .page {
+    display: block;
+    height: 100%;
+    background: #fff;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    flex-direction: column;
+  }
+
+  .deco {
+    font-size: calc(2.5rem + 15vw);
   }
 
   .par {
     margin-bottom: 2rem;
   }
 
-  .row .inputWrapper:first-child {
-    margin-right: 1rem;
+  .left {
+    padding: 6rem;
+    background: #fff url('../images/wallpaper.jpeg') no-repeat center / cover;
+  }
+
+  .left:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(36, 36, 36, 0.9);
+  }
+
+  .form {
+    z-index: 1;
+  }
+
+  .right {
+    padding: 2rem;
+    text-align: center;
+    margin: 0 2rem;
+    transform: translateY(-2rem);
+  }
+
+  .right h2 {
+    display: none;
+  }
+
+  .right > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .right p {
+    margin-top: 0;
+  }
+
+  .via {
+    margin-bottom: 0;
   }
 
   .input,
   .textarea {
     font-size: var(--font-small);
+  }
+
+  .footer {
+    display: block;
+  }
+}
+
+@media (max-width: 700px) {
+  .right > div {
+    flex-direction: column;
+  }
+
+  .via:not(:last-of-type) {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 590px) {
+  .left {
+    padding: 4rem;
+  }
+
+  .form {
+    width: 100%;
+  }
+
+  .row {
+    display: block;
+  }
+
+  .par {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 470px) {
+  .par br {
+    display: none;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 358px) {
+  .right {
+    padding: 2rem 1rem;
   }
 }
