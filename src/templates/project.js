@@ -64,14 +64,16 @@ const ProjectTemplate = ({ data }) => {
 
   // Add scrolling event listener
   useEffect(() => {
+    showImages();
     document.addEventListener('scroll', showImages);
   }, []);
 
   // Animate hero image
   useEffect(() => {
     const hero = document.querySelector(`.${styles.hero}`);
-    setTimeout(() => {});
-    hero.style.opacity = 1;
+    setTimeout(() => {
+      hero.style.opacity = 1;
+    });
   }, []);
 
   // Animate tiles on scroll
@@ -124,48 +126,57 @@ const ProjectTemplate = ({ data }) => {
       />
       {images.length < 2 ? (
         <div className={styles.singleColumn}>
-          {project.images?.map((image) => (
-            <GatsbyImage
-              data-key={image.contentful_id}
-              key={image.contentful_Id}
-              className={styles.image}
-              image={image.gatsbyImageData}
-              alt={project.title}
-              title={project.title}
-              onClick={showLightbox}
-              objectFit="contain"
-            />
-          ))}
+          <ul>
+            {project.images?.map((image) => (
+              <li key={image.contentful_Id}>
+                <GatsbyImage
+                  data-key={image.contentful_id}
+                  className={styles.image}
+                  image={image.gatsbyImageData}
+                  alt={project.title}
+                  title={project.title}
+                  onClick={showLightbox}
+                  objectFit="contain"
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div className={styles.images}>
           <div className={styles.column}>
-            {project.images?.slice(0, images.length / 2).map((image) => (
-              <GatsbyImage
-                data-key={image.contentful_id}
-                key={image.contentful_Id}
-                className={styles.image}
-                image={image.gatsbyImageData}
-                alt={project.title}
-                title={project.title}
-                onClick={showLightbox}
-                objectFit="contain"
-              />
-            ))}
+            <ul>
+              {project.images?.slice(0, images.length / 2).map((image) => (
+                <li key={image.contentful_Id}>
+                  <GatsbyImage
+                    data-key={image.contentful_id}
+                    className={styles.image}
+                    image={image.gatsbyImageData}
+                    alt={project.title}
+                    title={project.title}
+                    onClick={showLightbox}
+                    objectFit="contain"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
           <div className={styles.column}>
-            {project.images?.slice(images.length / 2).map((image) => (
-              <GatsbyImage
-                data-key={image.contentful_id}
-                key={image.contentful_Id}
-                className={styles.image}
-                image={image.gatsbyImageData}
-                objectFit="contain"
-                title={project.title}
-                alt={project.title}
-                onClick={showLightbox}
-              />
-            ))}
+            <ul>
+              {project.images?.slice(images.length / 2).map((image) => (
+                <li key={image.contentful_Id}>
+                  <GatsbyImage
+                    data-key={image.contentful_id}
+                    className={styles.image}
+                    image={image.gatsbyImageData}
+                    objectFit="contain"
+                    title={project.title}
+                    alt={project.title}
+                    onClick={showLightbox}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}

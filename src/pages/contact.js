@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'gatsby';
 
 import Seo from '../components/seo';
+import Social from '../components/Social';
 
 import * as styles from './contact.module.css';
-
-import Social from '../components/Social';
 
 const ContactPage = () => {
   const nameRef = useRef(null);
@@ -29,13 +29,13 @@ const ContactPage = () => {
       <Seo title="Contact" />
       <div className={styles.container}>
         <section className={styles.left}>
-          {/* <nav>
+          <nav>
             <ul>
               <li>
                 <Link to="/">Home</Link>
               </li>
             </ul>
-          </nav> */}
+          </nav>
           <form
             action="/contact/success"
             method="POST"

@@ -101,24 +101,11 @@ const RootIndex = ({ data }) => {
     setProjects(fetchedProjects);
   }, []);
 
-  // Show tiles already in viewport
+  // Register event listeners / Show tiles in viewport
   useEffect(() => {
     setTimeout(() => {
-      const tiles = document.querySelectorAll('.tile');
-
-      for (const tile of tiles) {
-        const offsetTop = tile.getBoundingClientRect().top;
-
-        if (offsetTop < window.innerHeight) {
-          tile.style.transform = 'translateY(0)';
-          tile.style.opacity = 1;
-        }
-      }
+      showTiles();
     });
-  }, []);
-
-  // Register event listeners
-  useEffect(() => {
     document.addEventListener('scroll', showTiles);
   }, []);
 

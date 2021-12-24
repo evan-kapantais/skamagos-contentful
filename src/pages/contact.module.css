@@ -21,7 +21,7 @@
   letter-spacing: 1px;
 }
 
-.page nav {
+.left nav {
   position: absolute;
   top: 2rem;
   left: 5%;
@@ -262,6 +262,11 @@
 @media (max-width: 590px) {
   .left {
     padding: 4rem;
+  }
+
+  .left nav {
+    left: unset;
+    right: 5%;
   }
 
   .form {
