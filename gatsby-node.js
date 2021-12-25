@@ -8,7 +8,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const result = await graphql(
     `
       {
-        allContentfulProject(sort: { fields: publishDate, order: DESC }) {
+        allContentfulProject(sort: { fields: featured, order: DESC }) {
           nodes {
             title
             slug

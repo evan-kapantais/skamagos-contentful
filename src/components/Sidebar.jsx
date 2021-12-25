@@ -10,7 +10,7 @@ const Sidebar = () => {
     <StaticQuery
       query={graphql`
         query titlesQuery {
-          allContentfulProject(sort: { fields: publishDate, order: DESC }) {
+          allContentfulProject(sort: { fields: featured, order: DESC }) {
             edges {
               node {
                 title
