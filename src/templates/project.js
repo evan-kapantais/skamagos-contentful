@@ -124,7 +124,7 @@ const ProjectTemplate = ({ data }) => {
         title={project.title}
         onClick={showLightbox}
       />
-      {images.length < 2 ? (
+      {images.length < 2 && project?.images ? (
         <div className={styles.singleColumn}>
           <GatsbyImage
             data-key={project.images[0].contentful_id}
