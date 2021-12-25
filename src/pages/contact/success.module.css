@@ -1,41 +1,85 @@
 .page {
+  position: relative;
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   padding: 2rem 5%;
+  overflow: hidden;
+}
+
+.container {
+  width: fit-content;
 }
 
 .container h1 {
-  font-size: 2.5rem;
+  font-size: calc(1.5rem + 1vw);
   margin-bottom: 1rem;
 }
 
 .container p {
-  font-size: 1.2rem;
+  font-size: calc(0.85rem + 0.5vw);
   margin: 0;
 }
 
 .grid {
   position: absolute;
-  top: 0;
-  right: 10%;
-  max-height: 100%;
-  max-width: 40%;
+  top: 1rem;
+  right: 5%;
+  width: 40%;
+  height: calc(100% - 2rem);
   display: flex;
   gap: 1rem;
-  overflow: hidden;
+  overflow-y: auto;
+}
+
+.grid::-webkit-scrollbar,
+.row::-webkit-scrollbar,
+.column::-webkit-scrollbar {
+  display: none;
+}
+
+.row {
+  display: none;
+  width: calc(100% - 2rem);
+  position: absolute;
+  left: 1rem;
+  bottom: 10%;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.row .image {
+  height: 100%;
 }
 
 .image {
   margin-bottom: 1rem;
 }
 
-.socialItem {
-  display: inline-block;
-  margin-right: 0.7rem;
-}
+@media (max-width: 860px) {
+  .container {
+    margin-top: -10rem;
+  }
 
-.socialLink img {
-  width: 20px;
+  .grid {
+    display: none;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .image {
+    width: 150px;
+  }
+
+  .column:last-of-type {
+    display: none;
+  }
+
+  .column:first-of-type {
+    display: flex;
+    gap: 1rem;
+  }
 }
