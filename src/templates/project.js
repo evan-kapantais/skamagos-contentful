@@ -126,28 +126,22 @@ const ProjectTemplate = ({ data }) => {
       />
       {images.length < 2 ? (
         <div className={styles.singleColumn}>
-          <ul>
-            {project.images?.map((image) => (
-              <li key={image.contentful_Id}>
-                <GatsbyImage
-                  data-key={image.contentful_id}
-                  className={styles.image}
-                  image={image.gatsbyImageData}
-                  alt={project.title}
-                  title={project.title}
-                  onClick={showLightbox}
-                  objectFit="contain"
-                />
-              </li>
-            ))}
-          </ul>
+          <GatsbyImage
+            data-key={project.images[0].contentful_id}
+            className={styles.image}
+            image={project.images[0].gatsbyImageData}
+            alt={project.title}
+            title={project.title}
+            onClick={showLightbox}
+            objectFit="contain"
+          />
         </div>
       ) : (
         <div className={styles.images}>
           <div className={styles.column}>
             <ul>
-              {project.images?.slice(0, images.length / 2).map((image) => (
-                <li key={image.contentful_Id}>
+              {project.images?.slice(0, images.length / 2).map((image, i) => (
+                <li key={i}>
                   <GatsbyImage
                     data-key={image.contentful_id}
                     className={styles.image}
@@ -163,8 +157,8 @@ const ProjectTemplate = ({ data }) => {
           </div>
           <div className={styles.column}>
             <ul>
-              {project.images?.slice(images.length / 2).map((image) => (
-                <li key={image.contentful_Id}>
+              {project.images?.slice(images.length / 2).map((image, i) => (
+                <li key={i}>
                   <GatsbyImage
                     data-key={image.contentful_id}
                     className={styles.image}
