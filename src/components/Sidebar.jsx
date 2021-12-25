@@ -30,6 +30,18 @@ const Sidebar = () => {
           </header>
           <nav role="navigation" aria-label="Main">
             <ul>
+              <li>
+                <Link
+                  to="/contact"
+                  className={styles.link}
+                  activeClassName={styles.activeLink}
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+            <hr />
+            <ul>
               {data.allContentfulProject.edges.map(({ node }) => (
                 <li key={node.contentful_id} className={styles.navigationItem}>
                   <Link
@@ -43,12 +55,7 @@ const Sidebar = () => {
               ))}
             </ul>
           </nav>
-          <footer className={styles.sidebarFooter}>
-            <ul>
-              <li>
-                <Link to="/contact">Contact</Link>
-              </li>
-            </ul>
+          <footer>
             <Social />
           </footer>
         </aside>

@@ -15,20 +15,22 @@
   margin: 0;
 }
 
+.sidebar hr {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+}
+
 .navigation {
   display: flex;
   list-style: none;
   margin: 0;
 }
 
-.navigationItem {
-  font-size: 0.9rem;
-}
-
 .link {
   position: relative;
   display: block;
   width: fit-content;
+  font-size: 0.9rem;
 }
 
 .link:hover {
@@ -72,19 +74,6 @@
 
 .navigationItem:not(:last-of-type) {
   margin-bottom: 0.5rem;
-}
-
-.sidebarFooter {
-  width: 100%;
-  color: rgb(110, 110, 110);
-  white-space: nowrap;
-  display: flex;
-  justify-content: space-between;
-}
-
-.sidebarFooter li {
-  display: inline-block;
-  font-size: 0.85rem;
 }
 
 @media only screen and (max-width: 1000px) {
