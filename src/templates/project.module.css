@@ -1,5 +1,5 @@
 :root {
-  --hbot-padding-bottom: 0;
+  --hbot-padding-bottom: 1rem;
 }
 
 .header {
@@ -22,6 +22,7 @@
 
 .hbottom {
   padding: 2rem 2rem var(--hbot-padding-bottom) 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .hbottom p {
@@ -30,6 +31,9 @@
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  font-size: calc(1rem + 0.5vw);
 }
 
 .header h1 {
@@ -76,9 +80,9 @@
 
 .navLink {
   display: inline-block;
-  /* border-bottom: 1.5px solid currentColor; */
-  font-size: 0.85rem;
+  font-size: calc(0.85rem + 0.2vw);
   font-weight: var(--medium);
+  line-height: 1;
 }
 
 .navGen {
@@ -93,6 +97,10 @@
 @media (max-width: 1000px) {
   .htop {
     display: flex;
+  }
+
+  .hbottom {
+    box-shadow: none;
   }
 }
 

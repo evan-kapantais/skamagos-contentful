@@ -24,21 +24,29 @@ const Header = ({ data, setIsMenuOpen }) => {
         <Burger setIsMenuOpen={setIsMenuOpen} />
       </section>
       <section className={styles.hbottom}>
-        {previous && (
-          <Link to={`/${previous.slug}`} rel="prev" className={styles.navLink}>
-            ← <span className={styles.navTitle}>{previous.title}</span>{' '}
-            <span className={styles.navGen}>Prev</span>
-          </Link>
-        )}
+        <div>
+          {previous && (
+            <Link
+              to={`/${previous.slug}`}
+              rel="prev"
+              className={styles.navLink}
+            >
+              ← <span className={styles.navTitle}>{previous.title}</span>{' '}
+              <span className={styles.navGen}>Prev</span>
+            </Link>
+          )}
+        </div>
         <p>
           <b>{project.title}</b>
         </p>
-        {next && (
-          <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
-            <span className={styles.navTitle}>{next.title}</span>{' '}
-            <span className={styles.navGen}>Next</span> →
-          </Link>
-        )}
+        <div>
+          {next && (
+            <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
+              <span className={styles.navTitle}>{next.title}</span>{' '}
+              <span className={styles.navGen}>Next</span> →
+            </Link>
+          )}
+        </div>
       </section>
     </header>
   );
