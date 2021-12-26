@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import Seo from '../../components/seo';
 import Social from '../../components/Social';
 
-import * as styles from './success.module.css';
+import * as styles from '../../style/success.module.css';
 
 const ContactPage = ({ data }) => {
   const nodes = data.allContentfulProject.nodes;
@@ -28,7 +28,7 @@ const ContactPage = ({ data }) => {
         <div className={styles.grid}>
           <ul className={styles.column}>
             {nodes1.map((node, i) => (
-              <li key={node.contentful_id}>
+              <li key={i}>
                 <Link to={`/${node.slug}`}>
                   <GatsbyImage
                     key={i}
@@ -43,7 +43,7 @@ const ContactPage = ({ data }) => {
           </ul>
           <ul className={styles.column}>
             {nodes2.map((node, i) => (
-              <li key={node.contentful_id}>
+              <li key={i}>
                 <Link to={`/${node.slug}`}>
                   <GatsbyImage
                     key={i}
@@ -59,7 +59,7 @@ const ContactPage = ({ data }) => {
         </div>
         <ul className={styles.row}>
           {nodes.map((node, i) => (
-            <li key={node.contentful_id}>
+            <li key={i}>
               <Link to={`/${node.slug}`}>
                 <GatsbyImage
                   key={i}
