@@ -96,7 +96,7 @@ const RootIndex = ({ data }) => {
   // handle this in an effect
   const fetchedProjects = data.allContentfulProject.nodes;
 
-  // Set projects and categories
+  // Set projects
   useEffect(() => {
     setProjects(fetchedProjects);
   }, []);
