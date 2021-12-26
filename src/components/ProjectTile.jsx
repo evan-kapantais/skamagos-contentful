@@ -14,7 +14,7 @@ const ProjectTile = ({ project }) => {
           className={styles.imageWrapper}
         />
         <p>
-          <span>Fig.{project.contentful_id.slice(0, 3)}:</span> {project.title}
+          <span>{project.contentful_id.slice(0, 3)} /</span> {project.title}
         </p>
       </Link>
     </li>
