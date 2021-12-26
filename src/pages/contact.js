@@ -9,10 +9,6 @@ import Input from '../components/Input';
 
 const ContactPage = () => {
   const messageRef = useRef(null);
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
 
   // Adjust textarea height

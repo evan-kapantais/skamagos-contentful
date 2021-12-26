@@ -6,6 +6,7 @@ import * as styles from '../style/lightbox.module.css';
 const Lightbox = (props) => {
   const { project, allImages, setIsLightBoxOpen, lightboxIndex } = props;
 
+  const lightboxRef = useRef(null);
   const cursorRef = useRef(null);
 
   const [index, setIndex] = useState(0);
@@ -120,6 +121,7 @@ const Lightbox = (props) => {
             </button>
           </div>
           <GatsbyImage
+            sbyImage
             image={image.gatsbyImageData}
             alt="project image"
             className={`${styles.image} ${
