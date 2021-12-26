@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
+
+import Social from './Social';
 
 import * as styles from './menu.module.css';
-import { GatsbyImage } from 'gatsby-plugin-image';
 
 const Menu = ({ setIsMenuOpen }) => {
   const menuRef = useRef(null);
@@ -23,7 +25,7 @@ const Menu = ({ setIsMenuOpen }) => {
   }
 
   function showImage(e) {
-    const image = e.currentTarget.querySelector(`.${styles.image}`);
+    const image = e.currentTarget.nextElementSibling;
 
     const listWidth = e.currentTarget.parentNode.getBoundingClientRect().width;
 
@@ -32,6 +34,7 @@ const Menu = ({ setIsMenuOpen }) => {
 
     const itemIsTopside = itemRect.top < window.innerHeight / 2;
 
+    image.style.display = 'block';
     image.style.opacity = 1;
 
     const translateX = `${e.clientX + listWidth}px`;
@@ -43,15 +46,16 @@ const Menu = ({ setIsMenuOpen }) => {
   }
 
   function hideImage(e) {
-    const image = e.currentTarget.querySelector(`.${styles.image}`);
+    const image = e.currentTarget.nextElementSibling;
     image.style.opacity = 0;
+    image.style.display = 'none';
   }
 
   return (
     <StaticQuery
       query={graphql`
         query Projects {
-          allContentfulProject(sort: { fields: publishDate, order: DESC }) {
+          allContentfulProject(sort: { fields: featured, order: DESC }) {
             nodes {
               contentful_id
               title
@@ -75,14 +79,23 @@ const Menu = ({ setIsMenuOpen }) => {
           </header>
           <section>
             <ul>
+              <li>
+                <a href="/contact" className={styles.link}>
+                  Contact
+                </a>
+              </li>
+            </ul>
+            <hr />
+            <ul>
               {data.allContentfulProject.nodes.map((node) => (
-                <li
-                  key={node.contentful_id}
-                  className={styles.item}
-                  onMouseMove={showImage}
-                  onMouseLeave={hideImage}
-                >
-                  <Link to={`/${node.slug}`} className={styles.link}>
+                <li key={node.contentful_id} className={styles.item}>
+                  <Link
+                    to={`/${node.slug}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={styles.link}
+                    onMouseMove={showImage}
+                    onMouseLeave={hideImage}
+                  >
                     {node.title}
                   </Link>
                   <GatsbyImage
@@ -96,11 +109,7 @@ const Menu = ({ setIsMenuOpen }) => {
             </ul>
           </section>
           <footer>
-            <ul>
-              <li>
-                <a href="/contact">Contact</a>
-              </li>
-            </ul>
+            <Social />
           </footer>
         </div>
       )}

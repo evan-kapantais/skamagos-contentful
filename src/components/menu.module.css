@@ -32,22 +32,35 @@
 }
 
 .menu section {
+  flex-grow: 1;
+  margin: 2rem 0;
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.menu section::-webkit-scrollbar {
+  display: none;
+}
+
+.menu section hr {
+  width: 150px;
+  margin-left: 0;
 }
 
 .item {
   position: relative;
-  font-size: calc(1rem + 0.5vw);
-  padding: 0.3rem 0;
-  cursor: pointer;
   width: fit-content;
   transition: all 200ms;
 }
 
-.item:hover {
-  padding: 0.5rem 0;
-  font-size: calc(1rem + 1vw);
+.link {
+  display: block;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  font-size: calc(1rem + 0.5vw);
 }
 
 .link:hover {
@@ -70,6 +83,7 @@
 }
 
 .image {
+  display: none;
   width: 35vw;
   position: absolute;
   top: 0;

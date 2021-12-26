@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import './variables.css';
 import './global.css';
@@ -8,6 +8,10 @@ import Sidebar from './Sidebar';
 import Menu from './Menu';
 
 const Layout = ({ children, isMenuOpen, setIsMenuOpen }) => {
+  useEffect(() => {
+    if (isMenuOpen) document.body.style.overflow = 'hidden';
+  }, [isMenuOpen]);
+
   return (
     <div className="layout">
       <Seo />
