@@ -37,6 +37,10 @@
   padding: 1rem 2rem;
 }
 
+.header p span {
+  font-weight: 200;
+}
+
 .header button {
   background: none;
   border: none;

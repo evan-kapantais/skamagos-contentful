@@ -126,6 +126,7 @@
   user-select: none;
   font-size: var(--font-small);
   color: var(--color-label);
+  text-transform: capitalize;
 }
 
 .submit {

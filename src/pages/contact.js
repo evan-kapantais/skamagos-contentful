@@ -5,11 +5,9 @@ import Seo from '../components/seo';
 import Social from '../components/Social';
 
 import * as styles from '../style/contact.module.css';
+import Input from '../components/Input';
 
 const ContactPage = () => {
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const subjectRef = useRef(null);
   const messageRef = useRef(null);
 
   const [name, setName] = useState('');
@@ -50,52 +48,17 @@ const ContactPage = () => {
             <div>
               <div className={styles.row}>
                 <div className={styles.inputWrapper}>
-                  <label htmlFor="name" className={styles.label}>
-                    Name <span>*</span>
-                  </label>
-                  <input
-                    ref={nameRef}
-                    className={styles.input}
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="John Doe"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                  <Input type="text" name="name" placeholder="John Doe" />
                 </div>
                 <div className={styles.inputWrapper}>
-                  <label htmlFor="email" className={styles.label}>
-                    Email <span>*</span>
-                  </label>
-                  <input
-                    ref={emailRef}
-                    className={styles.input}
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="john@doe.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <Input type="email" name="email" placeholder="john@doe.com" />
                 </div>
               </div>
               <div className={styles.inputWrapper}>
-                <label htmlFor="subject" className={styles.label}>
-                  Subject <span>*</span>
-                </label>
-                <input
-                  ref={subjectRef}
-                  className={styles.input}
+                <Input
                   type="text"
-                  id="subject"
                   name="subject"
-                  placeholder="Let's work together"
-                  required
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder="Let's Work Together"
                 />
               </div>
               <div className={styles.inputWrapper}>
@@ -141,7 +104,7 @@ const ContactPage = () => {
       </div>
       <footer className={styles.footer}>
         Designed and developed by{' '}
-        <a href="https://www.evankapantais.com">Evan Kapantais</a>
+        <a href="https://www.instagram.com/evan.json/">Evan Kapantais</a>
       </footer>
       <h1 className={styles.deco}>Contact</h1>
     </div>
