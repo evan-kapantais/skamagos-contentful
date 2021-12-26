@@ -4,9 +4,10 @@ import * as styles from './footer.module.css';
 
 const Footer = () => (
   <footer className={styles.footer}>
-    <div className={styles.container}>
-      Designed and built by <a>Evan Kapantais</a>
-    </div>
+    Designed and built by{' '}
+    <a href="https://www.evankapantais.com" className="text-link">
+      Evan Kapantais
+    </a>
   </footer>
 );
 

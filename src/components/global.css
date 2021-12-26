@@ -65,6 +65,16 @@ a.active {
   font-weight: var(--bold);
 }
 
+.text-link {
+  color: inherit;
+  font-weight: var(--medium);
+  transition: all 200ms;
+}
+
+.text-link:hover {
+  color: var(--primary);
+}
+
 ul,
 ol {
   list-style: none;
