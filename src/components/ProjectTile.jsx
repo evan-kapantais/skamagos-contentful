@@ -13,7 +13,9 @@ const ProjectTile = ({ project }) => {
           loading="lazy"
           className={styles.imageWrapper}
         />
-        <p>- {project.title}</p>
+        <p>
+          <span>Fig.{project.contentful_id.slice(0, 3)}:</span> {project.title}
+        </p>
       </Link>
     </li>
   );
