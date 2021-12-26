@@ -64,6 +64,7 @@ const ProjectTemplate = ({ data }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const lightboxProps = {
+    project,
     allImages,
     setIsLightBoxOpen,
     lightboxIndex,
@@ -197,6 +198,7 @@ export const pageQuery = graphql`
     $nextProjectSlug: String
   ) {
     contentfulProject(slug: { eq: $slug }) {
+      contentful_id
       slug
       title
       publishDate(formatString: "MMMM Do, YYYY")

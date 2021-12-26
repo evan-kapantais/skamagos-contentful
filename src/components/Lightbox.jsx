@@ -4,11 +4,12 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import * as styles from '../style/lightbox.module.css';
 
 const Lightbox = (props) => {
-  const { allImages, setIsLightBoxOpen, lightboxIndex } = props;
+  const { project, allImages, setIsLightBoxOpen, lightboxIndex } = props;
 
   const cursorRef = useRef(null);
 
   const [index, setIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
 
   allImages.forEach(
     (image) => (image.isLandscape = image.resize.aspectRatio > 1)
@@ -31,6 +32,10 @@ const Lightbox = (props) => {
   }, [index]);
 
   function handleClick(e) {
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      return;
+    }
+
     if (allImages.length === 1) {
       return setIsLightBoxOpen(false);
     }
@@ -64,11 +69,35 @@ const Lightbox = (props) => {
     if (!nextArea) cursorRef.current.textContent = '← Previous';
   }
 
+  function handleTouchStart(e) {
+    const point = e.touches[0].clientX;
+    setTouchStart(point);
+  }
+
+  function handleTouchEnd(e) {
+    const point = e.changedTouches[0].clientX;
+
+    const dragMargin = 20;
+
+    const showNext = touchStart > point && touchStart - point > dragMargin;
+    const showPrev = point > touchStart && point - touchStart > dragMargin;
+
+    if (showNext) {
+      setIndex(index === allImages.length - 1 ? 0 : index + 1);
+    }
+
+    if (showPrev) {
+      setIndex(index === 0 ? allImages.length - 1 : index - 1);
+    }
+  }
+
   return (
     <div
       className={styles.lightbox}
       onClick={handleClick}
       onMouseMove={moveCursor}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {allImages.map((image) => (
         <div
@@ -76,6 +105,20 @@ const Lightbox = (props) => {
           key={image.contentful_id}
           id={image.contentful_id}
         >
+          <div className={styles.header}>
+            <p>
+              <span>{project.contentful_id.slice(0, 3)} / </span>
+              {project.title}
+            </p>
+            <button
+              type="button"
+              aria-label="close button"
+              role="button"
+              onClick={() => setIsLightBoxOpen(false)}
+            >
+              ✕
+            </button>
+          </div>
           <GatsbyImage
             image={image.gatsbyImageData}
             alt="project image"
