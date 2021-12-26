@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as styles from './social.module.css';
+import * as styles from '../style/social.module.css';
 
 import instagram from '../images/instagram-black.svg';
 import facebook from '../images/facebook-black.svg';

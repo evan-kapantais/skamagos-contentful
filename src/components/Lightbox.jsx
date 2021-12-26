@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import * as styles from './lightbox.module.css';
 import { GatsbyImage } from 'gatsby-plugin-image';
+
+import * as styles from '../style/lightbox.module.css';
 
 const Lightbox = (props) => {
   const { allImages, setIsLightBoxOpen, lightboxIndex } = props;

@@ -6,7 +6,7 @@ import ProjectTile from '../components/ProjectTile';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
 
-import * as styles from './indexGrid.module.css';
+import * as styles from '../style/indexGrid.module.css';
 
 const LargeGrid = ({ projects }) => {
   const column1 = [];

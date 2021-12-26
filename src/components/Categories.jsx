@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import * as styles from './navigation.module.css';
+import * as styles from '../style/navigation.module.css';
 
 const Categories = ({ categories, filterProjects }) => {
   return (

@@ -4,7 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Social from './Social';
 
-import * as styles from './menu.module.css';
+import * as styles from '../style/menu.module.css';
 
 const Menu = ({ setIsMenuOpen }) => {
   const menuRef = useRef(null);

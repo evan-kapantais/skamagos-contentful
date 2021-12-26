@@ -1,18 +1,18 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
+import React from 'react';
+import { Link, graphql } from 'gatsby';
+import get from 'lodash/get';
 
-import Seo from '../components/seo'
-import Layout from '../components/layout'
-import Hero from '../components/hero'
-import Tags from '../components/tags'
-import * as styles from './blog-post.module.css'
+import Seo from '../components/seo';
+import Layout from '../components/layout';
+import Hero from '../components/hero';
+import Tags from '../components/tags';
+import * as styles from '../style/blog-post.module.css';
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = get(this.props, 'data.contentfulBlogPost')
-    const previous = get(this.props, 'data.previous')
-    const next = get(this.props, 'data.next')
+    const post = get(this.props, 'data.contentfulBlogPost');
+    const previous = get(this.props, 'data.previous');
+    const next = get(this.props, 'data.next');
 
     return (
       <Layout location={this.props.location}>
@@ -63,11 +63,11 @@ class BlogPostTemplate extends React.Component {
           </div>
         </div>
       </Layout>
-    )
+    );
   }
 }
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
   query BlogPostBySlug(
@@ -111,4 +111,4 @@ export const pageQuery = graphql`
       title
     }
   }
-`
+`;

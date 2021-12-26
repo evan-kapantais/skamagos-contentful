@@ -3,7 +3,7 @@ import React from 'react';
 
 import Social from './Social';
 
-import * as styles from './sidebar.module.css';
+import * as styles from '../style/sidebar.module.css';
 
 const Sidebar = () => {
   return (

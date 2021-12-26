@@ -1,7 +1,7 @@
 import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import * as styles from '../templates/project.module.css';
+import * as styles from '../style/project.module.css';
 
 const ProjectImage = ({ image, showLightbox }) => {
   return (

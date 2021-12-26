@@ -8,7 +8,7 @@ import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
 
-import * as styles from './project.module.css';
+import * as styles from '../style/project.module.css';
 
 const Header = ({ data, setIsMenuOpen }) => {
   const project = data.contentfulProject;

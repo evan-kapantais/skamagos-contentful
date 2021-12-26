@@ -4,7 +4,7 @@ import { Link } from 'gatsby';
 import Seo from '../components/seo';
 import Social from '../components/Social';
 
-import * as styles from './contact.module.css';
+import * as styles from '../style/contact.module.css';
 
 const ContactPage = () => {
   const nameRef = useRef(null);

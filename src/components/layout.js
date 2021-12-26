@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import './variables.css';
-import './global.css';
+import '../style/variables.css';
+import '../style/global.css';
 import Seo from './seo';
 
 import Sidebar from './Sidebar';

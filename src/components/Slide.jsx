@@ -1,7 +1,7 @@
 import { GatsbyImage } from 'gatsby-plugin-image';
 import React, { useState } from 'react';
 
-import * as styles from './lightbox.module.css';
+import * as styles from '../style/lightbox.module.css';
 
 const Slide = ({ project, setIsLightBoxOpen }) => {
   const width = project.heroImage.gatsbyImageData.width;

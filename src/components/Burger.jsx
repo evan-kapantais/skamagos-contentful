@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as styles from './burger.module.css';
+import * as styles from '../style/burger.module.css';
 
 const Burger = ({ setIsMenuOpen }) => {
   return (

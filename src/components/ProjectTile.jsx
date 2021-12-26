@@ -1,7 +1,8 @@
 import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import * as styles from './tile.module.css';
 import { Link } from 'gatsby';
+
+import * as styles from '../style/tile.module.css';
 
 const ProjectTile = ({ project }) => {
   return (
