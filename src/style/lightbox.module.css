@@ -58,6 +58,7 @@
 
 .portrait {
   max-width: 450px;
+  max-height: calc(100% - 4rem);
 }
 
 .cursor {
@@ -78,5 +79,9 @@
 
   .header {
     display: flex;
+  }
+
+  .portrait {
+    margin-top: 4rem;
   }
 }

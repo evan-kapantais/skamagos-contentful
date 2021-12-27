@@ -195,8 +195,6 @@ const WithoutLightbox = ({ data }) => {
   const images = project.images ? project.images : [];
   const hero = project.heroImage;
 
-  const allImages = [hero, ...images];
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Add scrolling event listener
