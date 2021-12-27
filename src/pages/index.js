@@ -4,10 +4,11 @@ import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
+import ProjectTile from '../components/ProjectTile';
+
+import { showScrollItems } from '../utils/animations';
 
 import * as styles from '../style/indexGrid.module.css';
-
-import ProjectTile from '../components/ProjectTile';
 
 const LargeGrid = ({ projects }) => {
   const column1 = [];
@@ -106,29 +107,10 @@ const RootIndex = ({ data }) => {
 
   // Register event listeners / Show tiles in viewport
   useEffect(() => {
-    setTimeout(() => {
-      showTiles();
-    });
+    showScrollItems();
 
-    document.addEventListener('scroll', showTiles);
-  }, [showTiles]);
-
-  // Animate tiles on scroll
-  function showTiles(e) {
-    const tiles = document.querySelectorAll('.tile');
-
-    for (const tile of tiles) {
-      const offsetTop = tile.getBoundingClientRect().top;
-
-      if (isWindowDefined && offsetTop < window.innerHeight) {
-        tile.style.transform = 'translateY(0)';
-        tile.style.opacity = 1;
-      } else {
-        tile.style.transform = 'translateY(2rem)';
-        tile.style.opacity = 0;
-      }
-    }
-  }
+    document.addEventListener('scroll', showScrollItems);
+  }, []);
 
   function getLayout() {
     const windowExists = typeof window !== 'undefined';

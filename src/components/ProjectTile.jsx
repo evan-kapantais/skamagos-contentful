@@ -6,7 +6,10 @@ import * as styles from '../style/tile.module.css';
 
 const ProjectTile = ({ project }) => {
   return (
-    <li className={`tile ${styles.tile}`} data-key={project.contentful_id}>
+    <li
+      className={`scroll-item tile ${styles.tile}`}
+      data-key={project.contentful_id}
+    >
       <Link to={`/${project.slug}`}>
         <GatsbyImage
           image={project.heroImage.gatsbyImageData}

@@ -6,10 +6,11 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
+import Lightbox from '../components/Lightbox';
+
+import { showScrollItems } from '../utils/animations';
 
 import * as styles from '../style/project.module.css';
-
-import Lightbox from '../components/Lightbox';
 
 const Header = ({ data, setIsMenuOpen }) => {
   const project = data.contentfulProject;
@@ -74,34 +75,9 @@ const WithLightbox = ({ data }) => {
 
   // Add scrolling event listener
   useEffect(() => {
-    showImages();
-    document.addEventListener('scroll', showImages);
+    showScrollItems();
+    document.addEventListener('scroll', showScrollItems);
   }, []);
-
-  // Animate hero image
-  useEffect(() => {
-    const hero = document.querySelector(`.${styles.hero}`);
-    setTimeout(() => {
-      hero.style.opacity = 1;
-    });
-  }, []);
-
-  // Animate tiles on scroll
-  function showImages(e) {
-    const imgs = document.querySelectorAll(`.${styles.image}`);
-
-    for (const img of imgs) {
-      const offsetTop = img.getBoundingClientRect().top;
-
-      if (typeof window !== 'undefined' && offsetTop < window.innerHeight) {
-        img.style.transform = 'translateY(0)';
-        img.style.opacity = 1;
-      } else {
-        img.style.transform = 'translateY(2rem)';
-        img.style.opacity = 0;
-      }
-    }
-  }
 
   // Control document overflow
   useEffect(() => {
@@ -120,7 +96,7 @@ const WithLightbox = ({ data }) => {
 
   return (
     <Layout
-      location={typeof window !== 'undefined' && window.location}
+      location={window.location}
       isMenuOpen={isMenuOpen}
       setIsMenuOpen={setIsMenuOpen}
     >
@@ -128,7 +104,7 @@ const WithLightbox = ({ data }) => {
       <Header data={data} setIsMenuOpen={setIsMenuOpen} />
       <GatsbyImage
         data-key={hero.contentful_id}
-        className={styles.hero}
+        className={`scroll-item ${styles.hero}`}
         image={hero.gatsbyImageData}
         alt={project.title}
         title={project.title}
@@ -138,7 +114,7 @@ const WithLightbox = ({ data }) => {
         <div className={styles.singleColumn}>
           <GatsbyImage
             data-key={project.images[0].contentful_id}
-            className={styles.image}
+            className={`scroll-item ${styles.image}`}
             image={project.images[0].gatsbyImageData}
             alt={project.title}
             title={project.title}
@@ -154,7 +130,7 @@ const WithLightbox = ({ data }) => {
                 <li key={i}>
                   <GatsbyImage
                     data-key={image.contentful_id}
-                    className={styles.image}
+                    className={`scroll-item ${styles.image}`}
                     image={image.gatsbyImageData}
                     alt={project.title}
                     title={project.title}
@@ -171,7 +147,7 @@ const WithLightbox = ({ data }) => {
                 <li key={i}>
                   <GatsbyImage
                     data-key={image.contentful_id}
-                    className={styles.image}
+                    className={`scroll-item ${styles.image}`}
                     image={image.gatsbyImageData}
                     objectFit="contain"
                     title={project.title}
@@ -199,46 +175,20 @@ const WithoutLightbox = ({ data }) => {
 
   // Add scrolling event listener
   useEffect(() => {
-    showImages();
-    document.addEventListener('scroll', showImages);
+    showScrollItems();
+    document.addEventListener('scroll', showScrollItems);
   }, []);
-
-  // Animate hero image
-  useEffect(() => {
-    const hero = document.querySelector(`.${styles.hero}`);
-    setTimeout(() => {
-      hero.style.opacity = 1;
-    });
-  }, []);
-
-  // Animate tiles on scroll
-  function showImages(e) {
-    const imgs = document.querySelectorAll(`.${styles.image}`);
-
-    for (const img of imgs) {
-      const offsetTop = img.getBoundingClientRect().top;
-
-      if (typeof window !== 'undefined' && offsetTop < window.innerHeight) {
-        img.style.transform = 'translateY(0)';
-        img.style.opacity = 1;
-      } else {
-        img.style.transform = 'translateY(2rem)';
-        img.style.opacity = 0;
-      }
-    }
-  }
 
   return (
     <Layout
-      location={typeof window !== 'undefined' && window.location}
+      location={window.location}
       isMenuOpen={isMenuOpen}
       setIsMenuOpen={setIsMenuOpen}
     >
       <Seo title={project.title} image={project.heroImage.seoSrc.src} />
       <Header data={data} setIsMenuOpen={setIsMenuOpen} />
       <GatsbyImage
-        data-key={hero.contentful_id}
-        className={styles.hero}
+        className={`scroll-item ${styles.hero}`}
         image={hero.gatsbyImageData}
         alt={project.title}
         title={project.title}
@@ -246,7 +196,7 @@ const WithoutLightbox = ({ data }) => {
       {images.length < 2 && project?.images ? (
         <div className={styles.singleColumn}>
           <GatsbyImage
-            className={styles.image}
+            className={`scroll-item ${styles.image}`}
             image={project.images[0].gatsbyImageData}
             alt={project.title}
             title={project.title}
@@ -260,7 +210,7 @@ const WithoutLightbox = ({ data }) => {
               {project.images?.slice(0, images.length / 2).map((image, i) => (
                 <li key={i}>
                   <GatsbyImage
-                    className={styles.image}
+                    className={`scroll-item ${styles.image}`}
                     image={image.gatsbyImageData}
                     alt={project.title}
                     title={project.title}
@@ -275,7 +225,7 @@ const WithoutLightbox = ({ data }) => {
               {project.images?.slice(images.length / 2).map((image, i) => (
                 <li key={i}>
                   <GatsbyImage
-                    className={styles.image}
+                    className={`scroll-item ${styles.image}`}
                     image={image.gatsbyImageData}
                     objectFit="contain"
                     title={project.title}
