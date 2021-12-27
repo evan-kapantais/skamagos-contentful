@@ -31,9 +31,9 @@ const ContactPage = () => {
             </ul>
           </nav>
           <form
-            action="/contact/success"
             method="POST"
             data-netlify="true"
+            name="Contact Form"
             className={styles.form}
           >
             <h2>Get In Touch</h2>
