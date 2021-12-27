@@ -23,6 +23,7 @@ const Menu = ({ setIsMenuOpen }) => {
   // Animate menu out and set state
   function close(e) {
     menuRef.current.classList.remove(styles.shown);
+
     setTimeout(() => {
       setIsMenuOpen(false);
     }, 300);
@@ -104,12 +105,14 @@ const Menu = ({ setIsMenuOpen }) => {
                     {node.title}
                   </Link>
                   {!isTouchScreen && (
-                    <GatsbyImage
-                      image={node.heroImage.gatsbyImageData}
-                      alt={node.title}
-                      title={node.title}
-                      className={styles.image}
-                    />
+                    <div className={styles.imageWrapper}>
+                      <GatsbyImage
+                        image={node.heroImage.gatsbyImageData}
+                        alt={node.title}
+                        title={node.title}
+                        className={styles.image}
+                      />
+                    </div>
                   )}
                 </li>
               ))}
