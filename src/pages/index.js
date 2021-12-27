@@ -180,7 +180,7 @@ export const pageQuery = graphql`
         featured
         slug
         heroImage {
-          gatsbyImageData(placeholder: BLURRED, width: 500)
+          gatsbyImageData(width: 500)
         }
       }
     }

@@ -10,6 +10,7 @@ import Menu from './Menu';
 const Layout = ({ children, isMenuOpen, setIsMenuOpen }) => {
   useEffect(() => {
     if (isMenuOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
   }, [isMenuOpen]);
 
   return (
