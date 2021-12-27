@@ -93,13 +93,15 @@ const RootIndex = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [projects, setProjects] = useState(null);
 
+  const isWindowDefined = typeof window !== 'undefined';
+
   // handle this in an effect
   const fetchedProjects = data.allContentfulProject.nodes;
 
   // Set projects
   useEffect(() => {
     setProjects(fetchedProjects);
-  }, []);
+  }, [fetchedProjects]);
 
   // Register event listeners / Show tiles in viewport
   useEffect(() => {
@@ -116,7 +118,7 @@ const RootIndex = ({ data }) => {
     for (const tile of tiles) {
       const offsetTop = tile.getBoundingClientRect().top;
 
-      if (offsetTop < window.innerHeight) {
+      if (isWindowDefined && offsetTop < window.innerHeight) {
         tile.style.transform = 'translateY(0)';
         tile.style.opacity = 1;
       } else {

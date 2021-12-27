@@ -1,5 +1,7 @@
-import { Link } from 'gatsby';
 import React from 'react';
+import { Link } from 'gatsby';
+
+import '../style/variables.css';
 import * as styles from '../style/pageNotFound.module.css';
 
 const PageNotFound = () => {
@@ -8,7 +10,7 @@ const PageNotFound = () => {
       <div className={styles.container}>
         <h1 className={styles.heading}>Four Oh! Four</h1>
         <p className={styles.paragraph}>
-          Looks like I dropped your page somewhere 'round 'ere - bummer.
+          Looks like we dropped your page somewhere around here - bummer.
         </p>
         <p className={styles.homePar}>
           Go back{' '}

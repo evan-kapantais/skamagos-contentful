@@ -6,7 +6,6 @@ import * as styles from '../style/lightbox.module.css';
 const Lightbox = (props) => {
   const { project, allImages, setIsLightBoxOpen, lightboxIndex } = props;
 
-  const lightboxRef = useRef(null);
   const cursorRef = useRef(null);
 
   const [index, setIndex] = useState(0);
@@ -33,7 +32,10 @@ const Lightbox = (props) => {
   }, [index]);
 
   function handleClick(e) {
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches
+    ) {
       return;
     }
 
@@ -114,19 +116,18 @@ const Lightbox = (props) => {
             <button
               type="button"
               aria-label="close button"
-              role="button"
               onClick={() => setIsLightBoxOpen(false)}
             >
               ✕
             </button>
           </div>
           <GatsbyImage
-            sbyImage
             image={image.gatsbyImageData}
             alt="project image"
             className={`${styles.image} ${
               image.isLandscape ? styles.landscape : styles.portrait
             }`}
+            objectFit="contain"
           />
         </div>
       ))}

@@ -32,7 +32,8 @@ const Menu = ({ setIsMenuOpen }) => {
     const itemRect = e.currentTarget.getBoundingClientRect();
     const imageRect = image.getBoundingClientRect();
 
-    const itemIsTopside = itemRect.top < window.innerHeight / 2;
+    const itemIsTopside =
+      typeof window !== 'undefined' && itemRect.top < window.innerHeight / 2;
 
     image.style.display = 'block';
     image.style.opacity = 1;

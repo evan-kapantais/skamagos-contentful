@@ -89,7 +89,7 @@ const ContactPage = () => {
             </div>
             <div className={styles.via}>
               <p>Call me</p>
-              <a href="tel:+306978392849">+30 697 8392 849</a>
+              <a href="tel:+30 693 184 4529">+30 693 184 4529</a>
             </div>
             <div className={styles.via}>
               <p>Follow me</p>

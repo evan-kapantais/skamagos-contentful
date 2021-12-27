@@ -92,7 +92,7 @@ const ProjectTemplate = ({ data }) => {
     for (const img of imgs) {
       const offsetTop = img.getBoundingClientRect().top;
 
-      if (offsetTop < window.innerHeight) {
+      if (typeof window !== 'undefined' && offsetTop < window.innerHeight) {
         img.style.transform = 'translateY(0)';
         img.style.opacity = 1;
       } else {
