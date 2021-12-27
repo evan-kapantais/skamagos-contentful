@@ -32,6 +32,7 @@ const ContactPage = () => {
           </nav>
           <form
             method="POST"
+            action="/contact/success"
             data-netlify="true"
             name="Contact Form"
             className={styles.form}
@@ -54,7 +55,7 @@ const ContactPage = () => {
                 <Input
                   type="text"
                   name="subject"
-                  placeholder="Let's Work Together"
+                  placeholder="Let us Work Together"
                 />
               </div>
               <div className={styles.inputWrapper}>
