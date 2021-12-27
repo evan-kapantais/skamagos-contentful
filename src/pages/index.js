@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Link, graphql } from 'gatsby';
 
 import Layout from '../components/layout';
-import ProjectTile from '../components/ProjectTile';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
 
 import * as styles from '../style/indexGrid.module.css';
+
+const ProjectTile = lazy(() => import('../components/ProjectTile'));
 
 const LargeGrid = ({ projects }) => {
   const column1 = [];
@@ -22,7 +23,7 @@ const LargeGrid = ({ projects }) => {
   }
 
   return (
-    <>
+    <Suspense fallback={<p>Loading...</p>}>
       <div className={styles.column}>
         <ul>
           {column1.map((project) => (
@@ -44,7 +45,7 @@ const LargeGrid = ({ projects }) => {
           ))}
         </ul>
       </div>
-    </>
+    </Suspense>
   );
 };
 
@@ -60,7 +61,7 @@ const MediumGrid = ({ projects }) => {
   }
 
   return (
-    <>
+    <Suspense fallback={<p>Loading...</p>}>
       <div className={`${styles.columnMedium} ${styles.column}`}>
         <ul>
           {column1.map((project) => (
@@ -75,7 +76,7 @@ const MediumGrid = ({ projects }) => {
           ))}
         </ul>
       </div>
-    </>
+    </Suspense>
   );
 };
 
@@ -83,7 +84,9 @@ const SmallGrid = ({ projects }) => (
   <div className={styles.columnSmall}>
     <ul>
       {projects.map((project) => (
-        <ProjectTile key={project.contentful_id} project={project} />
+        <Suspense fallback={<p>Loading...</p>}>
+          <ProjectTile key={project.contentful_id} project={project} />
+        </Suspense>
       ))}
     </ul>
   </div>
@@ -108,6 +111,7 @@ const RootIndex = ({ data }) => {
     setTimeout(() => {
       showTiles();
     });
+
     document.addEventListener('scroll', showTiles);
   }, []);
 
@@ -141,52 +145,44 @@ const RootIndex = ({ data }) => {
   }
 
   return (
-    <Layout
-      location={window.location}
-      isMenuOpen={isMenuOpen}
-      setIsMenuOpen={setIsMenuOpen}
-    >
-      {!projects && <p>Loading content...</p>}
-      {projects && (
-        <div className="index-container">
-          <section className="content">
-            <header className="content-header">
-              <Link to="/">
-                <h1>Skamagos</h1>
-              </Link>
-              <Burger setIsMenuOpen={setIsMenuOpen} />
-            </header>
-            <div className="project-thumbs__wrapper">{getLayout()}</div>
-            <Footer />
-          </section>
-        </div>
-      )}
-    </Layout>
+    isWindowDefined && (
+      <Layout
+        location={window.location}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+      >
+        {!projects && <p>Loading content...</p>}
+        {projects && (
+          <div className="index-container">
+            <section className="content">
+              <header className="content-header">
+                <Link to="/">
+                  <h1>Skamagos</h1>
+                </Link>
+                <Burger setIsMenuOpen={setIsMenuOpen} />
+              </header>
+              <div className="project-thumbs__wrapper">{getLayout()}</div>
+              <Footer />
+            </section>
+          </div>
+        )}
+      </Layout>
+    )
   );
 };
 
 export default RootIndex;
 
 export const pageQuery = graphql`
-  query Index01Query {
+  query IndexQuery {
     allContentfulProject(sort: { fields: featured, order: DESC }) {
       nodes {
         contentful_id
         title
-        category
         featured
         slug
-        publishDate(formatString: "MMMM Do, YYYY")
         heroImage {
-          gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
-        }
-        images {
-          gatsbyImageData(
-            layout: FULL_WIDTH
-            placeholder: BLURRED
-            width: 700
-            height: 400
-          )
+          gatsbyImageData(placeholder: BLURRED, width: 500)
         }
       }
     }

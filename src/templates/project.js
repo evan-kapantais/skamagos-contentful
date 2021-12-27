@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Link, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-import Lightbox from '../components/Lightbox';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
 
 import * as styles from '../style/project.module.css';
+
+const Lightbox = lazy(() => import('../components/Lightbox'));
 
 const Header = ({ data, setIsMenuOpen }) => {
   const project = data.contentfulProject;
@@ -119,7 +120,7 @@ const ProjectTemplate = ({ data }) => {
 
   return (
     <Layout
-      location={window.location}
+      location={typeof window !== 'undefined' && window.location}
       isMenuOpen={isMenuOpen}
       setIsMenuOpen={setIsMenuOpen}
     >
@@ -184,7 +185,9 @@ const ProjectTemplate = ({ data }) => {
         </div>
       )}
       <Footer />
-      {isLightBoxOpen && <Lightbox {...lightboxProps} />}
+      <Suspense fallback={<p>Loading..</p>}>
+        {isLightBoxOpen && <Lightbox {...lightboxProps} />}
+      </Suspense>
     </Layout>
   );
 };
