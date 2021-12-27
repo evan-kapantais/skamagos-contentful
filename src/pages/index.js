@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, graphql } from 'gatsby';
 
 import Layout from '../components/layout';
@@ -111,7 +111,7 @@ const RootIndex = ({ data }) => {
     });
 
     document.addEventListener('scroll', showTiles);
-  }, []);
+  }, [showTiles]);
 
   // Animate tiles on scroll
   function showTiles(e) {
