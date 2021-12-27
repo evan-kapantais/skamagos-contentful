@@ -53,7 +53,7 @@ const Header = ({ data, setIsMenuOpen }) => {
   );
 };
 
-const ProjectTemplate = ({ data }) => {
+const WithLightbox = ({ data }) => {
   const project = data.contentfulProject;
   const images = project.images ? project.images : [];
   const hero = project.heroImage;
@@ -188,6 +188,122 @@ const ProjectTemplate = ({ data }) => {
       {isLightBoxOpen && <Lightbox {...lightboxProps} />}
     </Layout>
   );
+};
+
+const WithoutLightbox = ({ data }) => {
+  const project = data.contentfulProject;
+  const images = project.images ? project.images : [];
+  const hero = project.heroImage;
+
+  const allImages = [hero, ...images];
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Add scrolling event listener
+  useEffect(() => {
+    showImages();
+    document.addEventListener('scroll', showImages);
+  }, []);
+
+  // Animate hero image
+  useEffect(() => {
+    const hero = document.querySelector(`.${styles.hero}`);
+    setTimeout(() => {
+      hero.style.opacity = 1;
+    });
+  }, []);
+
+  // Animate tiles on scroll
+  function showImages(e) {
+    const imgs = document.querySelectorAll(`.${styles.image}`);
+
+    for (const img of imgs) {
+      const offsetTop = img.getBoundingClientRect().top;
+
+      if (typeof window !== 'undefined' && offsetTop < window.innerHeight) {
+        img.style.transform = 'translateY(0)';
+        img.style.opacity = 1;
+      } else {
+        img.style.transform = 'translateY(2rem)';
+        img.style.opacity = 0;
+      }
+    }
+  }
+
+  return (
+    <Layout
+      location={typeof window !== 'undefined' && window.location}
+      isMenuOpen={isMenuOpen}
+      setIsMenuOpen={setIsMenuOpen}
+    >
+      <Seo title={project.title} image={project.heroImage.seoSrc.src} />
+      <Header data={data} setIsMenuOpen={setIsMenuOpen} />
+      <GatsbyImage
+        data-key={hero.contentful_id}
+        className={styles.hero}
+        image={hero.gatsbyImageData}
+        alt={project.title}
+        title={project.title}
+      />
+      {images.length < 2 && project?.images ? (
+        <div className={styles.singleColumn}>
+          <GatsbyImage
+            className={styles.image}
+            image={project.images[0].gatsbyImageData}
+            alt={project.title}
+            title={project.title}
+            objectFit="contain"
+          />
+        </div>
+      ) : (
+        <div className={styles.images}>
+          <div className={styles.column}>
+            <ul>
+              {project.images?.slice(0, images.length / 2).map((image, i) => (
+                <li key={i}>
+                  <GatsbyImage
+                    className={styles.image}
+                    image={image.gatsbyImageData}
+                    alt={project.title}
+                    title={project.title}
+                    objectFit="contain"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={styles.column}>
+            <ul>
+              {project.images?.slice(images.length / 2).map((image, i) => (
+                <li key={i}>
+                  <GatsbyImage
+                    className={styles.image}
+                    image={image.gatsbyImageData}
+                    objectFit="contain"
+                    title={project.title}
+                    alt={project.title}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+      <Footer />
+    </Layout>
+  );
+};
+
+const ProjectTemplate = ({ data }) => {
+  const isWindowDefined = typeof window !== 'undefined';
+
+  if (!isWindowDefined) return;
+
+  if (window.innerWidth > 700) {
+    return <WithLightbox data={data} />;
+  } else {
+    return <WithoutLightbox data={data} />;
+  }
 };
 
 export default ProjectTemplate;
