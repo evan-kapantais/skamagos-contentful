@@ -110,7 +110,6 @@ const Menu = ({ setIsMenuOpen }) => {
                         image={node.heroImage.gatsbyImageData}
                         alt={node.title}
                         title={node.title}
-                        className={styles.image}
                       />
                     </div>
                   )}
