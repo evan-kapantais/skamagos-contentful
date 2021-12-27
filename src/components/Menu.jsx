@@ -9,6 +9,10 @@ import * as styles from '../style/menu.module.css';
 const Menu = ({ setIsMenuOpen }) => {
   const menuRef = useRef(null);
 
+  const isTouchScreen =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(pointer: coarse)').matches;
+
   // Animate menu in
   useEffect(() => {
     setTimeout(() => {
@@ -94,17 +98,19 @@ const Menu = ({ setIsMenuOpen }) => {
                     to={`/${node.slug}`}
                     onClick={() => setIsMenuOpen(false)}
                     className={styles.link}
-                    onMouseMove={showImage}
-                    onMouseLeave={hideImage}
+                    onMouseMove={isTouchScreen ? null : showImage}
+                    onMouseLeave={isTouchScreen ? null : hideImage}
                   >
                     {node.title}
                   </Link>
-                  <GatsbyImage
-                    image={node.heroImage.gatsbyImageData}
-                    alt={node.title}
-                    title={node.title}
-                    className={styles.image}
-                  />
+                  {!isTouchScreen && (
+                    <GatsbyImage
+                      image={node.heroImage.gatsbyImageData}
+                      alt={node.title}
+                      title={node.title}
+                      className={styles.image}
+                    />
+                  )}
                 </li>
               ))}
             </ul>
