@@ -7,7 +7,7 @@ import Burger from '../components/Burger';
 
 import * as styles from '../style/indexGrid.module.css';
 
-const ProjectTile = lazy(() => import('../components/ProjectTile'));
+import ProjectTile from '../components/ProjectTile';
 
 const LargeGrid = ({ projects }) => {
   const column1 = [];
@@ -23,7 +23,7 @@ const LargeGrid = ({ projects }) => {
   }
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <>
       <div className={styles.column}>
         <ul>
           {column1.map((project) => (
@@ -45,7 +45,7 @@ const LargeGrid = ({ projects }) => {
           ))}
         </ul>
       </div>
-    </Suspense>
+    </>
   );
 };
 
@@ -61,7 +61,7 @@ const MediumGrid = ({ projects }) => {
   }
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <>
       <div className={`${styles.columnMedium} ${styles.column}`}>
         <ul>
           {column1.map((project) => (
@@ -76,7 +76,7 @@ const MediumGrid = ({ projects }) => {
           ))}
         </ul>
       </div>
-    </Suspense>
+    </>
   );
 };
 
@@ -84,9 +84,7 @@ const SmallGrid = ({ projects }) => (
   <div className={styles.columnSmall}>
     <ul>
       {projects.map((project) => (
-        <Suspense fallback={<p>Loading...</p>}>
-          <ProjectTile key={project.contentful_id} project={project} />
-        </Suspense>
+        <ProjectTile key={project.contentful_id} project={project} />
       ))}
     </ul>
   </div>
