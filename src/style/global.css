@@ -124,7 +124,10 @@ input[type='submit'] {
 
 .content-header h1 {
   font-size: calc(1rem + 2vw);
-  margin: 0;
+}
+
+.content-header a {
+  color: inherit;
 }
 
 .project-thumbs__wrapper {
