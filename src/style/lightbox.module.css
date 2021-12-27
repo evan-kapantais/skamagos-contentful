@@ -72,6 +72,13 @@
   opacity: 0;
 }
 
+.tip {
+  display: none;
+  position: absolute;
+  bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
 @media (hover: none) {
   .cursor {
     display: none;
@@ -83,5 +90,9 @@
 
   .portrait {
     margin-top: 4rem;
+  }
+
+  .tip {
+    display: block;
   }
 }

@@ -134,6 +134,7 @@ const Lightbox = (props) => {
       <p className={styles.cursor} ref={cursorRef}>
         Close
       </p>
+      <span className={styles.tip}>← Drag →</span>
     </div>
   );
 };
