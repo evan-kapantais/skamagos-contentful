@@ -245,7 +245,7 @@ const WithoutLightbox = ({ data }) => {
 const ProjectTemplate = ({ data }) => {
   const isWindowDefined = typeof window !== 'undefined';
 
-  if (!isWindowDefined) return;
+  if (!isWindowDefined) return null;
 
   if (window.innerWidth > 700) {
     return <WithLightbox data={data} />;
