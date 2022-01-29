@@ -38,43 +38,8 @@
   font-size: 0.9rem;
 }
 
-.link:hover {
-  color: inherit;
-}
-
-.link:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) scale(0);
-  right: -1rem;
-  width: 5px;
-  height: 5px;
-  background: rgb(146, 146, 146);
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 200ms ease;
-}
-
-.link:hover:before {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
-}
-
 .activeLink {
   font-weight: 600;
-}
-
-.activeLink:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -1rem;
-  width: 5px;
-  height: 5px;
-  background: #222;
-  border-radius: 50%;
 }
 
 .navigationItem:not(:last-of-type) {

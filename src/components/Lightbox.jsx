@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 import * as styles from '../style/lightbox.module.css';
 
+import chevronLeft from '../images/chevron-left.svg';
+import chevronRight from '../images/chevron-right.svg';
+
 const Lightbox = (props) => {
   const { project, allImages, setIsLightBoxOpen, lightboxIndex } = props;
-
-  const cursorRef = useRef(null);
 
   const [index, setIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
@@ -31,45 +32,20 @@ const Lightbox = (props) => {
     slides[index].style.display = 'flex';
   }, [index]);
 
-  function handleClick(e) {
-    if (
-      typeof window !== 'undefined' &&
-      window.matchMedia('(pointer: coarse)').matches
-    ) {
-      return;
-    }
-
-    if (allImages.length === 1) {
-      return setIsLightBoxOpen(false);
-    }
-
-    const isTargetImage = e.target.className !== styles.slide;
-    const nextArea = e.clientX > window.innerWidth / 2;
-
-    isTargetImage && setIsLightBoxOpen(false);
-
-    nextArea && setIndex(index === allImages.length - 1 ? 0 : index + 1);
-
-    !nextArea && setIndex(index === 0 ? allImages.length - 1 : index - 1);
+  function increment() {
+    setIndex(index === allImages.length - 1 ? 0 : index + 1);
+    console.log(index);
   }
 
-  function moveCursor(e) {
-    const isTargetImage = e.target.className !== styles.slide;
-    const nextArea = e.clientX > window.innerWidth / 2;
+  function decrement() {
+    setIndex(index === 0 ? allImages.length - 1 : index - 1);
+    console.log(index);
+  }
 
-    const textRect = cursorRef.current.getBoundingClientRect();
+  function handleClick(e) {
+    const tag = e.target.tagName;
 
-    cursorRef.current.style.opacity = 1;
-    cursorRef.current.style.transform = `translate(${
-      e.clientX - textRect.width / 2
-    }px, ${e.clientY - textRect.height}px)`;
-
-    if (allImages.length === 1)
-      return (cursorRef.current.textContent = '✕ Close');
-
-    if (isTargetImage) return (cursorRef.current.textContent = '✕ Close');
-    if (nextArea) cursorRef.current.textContent = 'Next →';
-    if (!nextArea) cursorRef.current.textContent = '← Previous';
+    (tag === 'MAIN' || tag === 'DIV') && setIsLightBoxOpen(false);
   }
 
   function handleTouchStart(e) {
@@ -86,21 +62,20 @@ const Lightbox = (props) => {
     const showPrev = point > touchStart && point - touchStart > dragMargin;
 
     if (showNext) {
-      setIndex(index === allImages.length - 1 ? 0 : index + 1);
+      increment();
     }
 
     if (showPrev) {
-      setIndex(index === 0 ? allImages.length - 1 : index - 1);
+      decrement();
     }
   }
 
   return (
     <div
       className={styles.lightbox}
-      onClick={handleClick}
-      onMouseMove={moveCursor}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onClick={handleClick}
     >
       {allImages.map((image) => (
         <div
@@ -108,33 +83,39 @@ const Lightbox = (props) => {
           key={image.contentful_id}
           id={image.contentful_id}
         >
-          <div className={styles.header}>
-            <p>
-              <span>{project.contentful_id.slice(0, 3)} / </span>
-              {project.title}
-            </p>
-            <button
-              type="button"
-              aria-label="close button"
-              onClick={() => setIsLightBoxOpen(false)}
-            >
-              ✕
+          <header>
+            <div className={styles.header}>
+              <p>
+                <span>{project.contentful_id.slice(0, 3)} / </span>
+                {project.title}
+              </p>
+              <button
+                type="button"
+                aria-label="close button"
+                onClick={() => setIsLightBoxOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+          </header>
+          <main>
+            <button type="button" className={styles.arrow} onClick={decrement}>
+              <img src={chevronLeft} alt="left arrow" />
             </button>
-          </div>
-          <GatsbyImage
-            image={image.gatsbyImageData}
-            alt="project image"
-            className={`${styles.image} ${
-              image.isLandscape ? styles.landscape : styles.portrait
-            }`}
-            objectFit="contain"
-          />
+            <GatsbyImage
+              image={image.gatsbyImageData}
+              alt="project image"
+              className={`${styles.image} ${
+                image.isLandscape ? styles.landscape : styles.portrait
+              }`}
+              objectFit="contain"
+            />
+            <button type="button" className={styles.arrow} onClick={increment}>
+              <img src={chevronRight} alt="left arrow" />
+            </button>
+          </main>
         </div>
       ))}
-      <p className={styles.cursor} ref={cursorRef}>
-        Close
-      </p>
-      <span className={styles.tip}>← Drag →</span>
     </div>
   );
 };
