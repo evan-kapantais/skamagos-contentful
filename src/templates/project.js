@@ -33,8 +33,7 @@ const Header = ({ data, setIsMenuOpen }) => {
               rel="prev"
               className={styles.navLink}
             >
-              ← <span className={styles.navTitle}>{previous.title}</span>{' '}
-              <span className={styles.navGen}>Prev</span>
+              ← Prev
             </Link>
           )}
         </div>
@@ -44,8 +43,7 @@ const Header = ({ data, setIsMenuOpen }) => {
         <div>
           {next && (
             <Link to={`/${next.slug}`} rel="next" className={styles.navLink}>
-              <span className={styles.navTitle}>{next.title}</span>{' '}
-              <span className={styles.navGen}>Next</span> →
+              Next →
             </Link>
           )}
         </div>

@@ -38,7 +38,7 @@
 
 .header h1 {
   margin: 0;
-  font-size: calc(1rem + 2vw);
+  font-size: var(--fontSize-3);
 }
 
 .hero {
@@ -85,10 +85,6 @@
   line-height: 1;
 }
 
-.navGen {
-  display: none;
-}
-
 .navLink:hover {
   border-bottom-color: transparent;
   color: var(--primary);
@@ -129,15 +125,5 @@
     max-width: calc(100% - 4rem);
     margin: 2rem auto;
     transform: none;
-  }
-}
-
-@media (max-width: 426px) {
-  .navTitle {
-    display: none;
-  }
-
-  .navGen {
-    display: unset;
   }
 }

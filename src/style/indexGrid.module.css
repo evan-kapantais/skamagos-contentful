@@ -9,7 +9,3 @@
 .columnSmall {
   width: 100%;
 }
-
-.column:nth-child(odd) {
-  margin-top: 4rem;
-}
