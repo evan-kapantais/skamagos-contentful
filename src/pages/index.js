@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import Footer from '../components/footer';
 import Burger from '../components/Burger';
 import ProjectTile from '../components/ProjectTile';
+import Seo from '../components/seo';
 
 import { showScrollItems } from '../utils/animations';
 
@@ -131,6 +132,7 @@ const RootIndex = ({ data }) => {
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
       >
+        <Seo />
         {!projects && <p>Loading content...</p>}
         {projects && (
           <div className="index-container">
