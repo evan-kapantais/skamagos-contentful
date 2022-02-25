@@ -139,7 +139,7 @@ const RootIndex = ({ data }) => {
             <section className="content">
               <header className="content-header">
                 <Link to="/">
-                  <h1>Skamagos</h1>
+                  <h1>Konstantinos Skamagos</h1>
                 </Link>
                 <Burger setIsMenuOpen={setIsMenuOpen} />
               </header>
