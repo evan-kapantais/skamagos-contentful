@@ -25,22 +25,12 @@ const Sidebar = () => {
         <aside className={styles.sidebar}>
           <header>
             <h1>
-              <Link to="/">Skamagos</Link>
+              <Link to="/" style={{ whiteSpace: 'nowrap' }}>
+                Konstantinos Skamagos
+              </Link>
             </h1>
           </header>
           <nav role="navigation" aria-label="Main">
-            <ul>
-              <li>
-                <Link
-                  to="/contact"
-                  className={styles.link}
-                  activeClassName={styles.activeLink}
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-            <hr />
             <ul>
               {data.allContentfulProject.edges.map(({ node }) => (
                 <li key={node.contentful_id} className={styles.navigationItem}>
@@ -53,6 +43,17 @@ const Sidebar = () => {
                   </Link>
                 </li>
               ))}
+            </ul>
+            <ul className={styles.siteList}>
+              <li>
+                <Link
+                  to="/contact"
+                  className={styles.link}
+                  activeClassName={styles.activeLink}
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </nav>
           <footer>
