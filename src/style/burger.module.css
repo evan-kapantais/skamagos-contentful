@@ -1,5 +1,5 @@
 .burger {
-  width: 32px;
+  width: 26px;
   padding: 0;
   display: none;
   border: none;
@@ -8,20 +8,15 @@
 }
 
 .dash {
-  width: 23px;
+  width: 100%;
   background: #fff;
-  height: 3px;
+  height: 2px;
   margin-bottom: 0.4rem;
   border-radius: 0;
   transition: all 200ms ease;
 }
 
-.dash:first-child {
-  width: 29px;
-}
-
 .dash:last-child {
-  width: 13px;
   margin: 0;
 }
 
