@@ -53,16 +53,12 @@
 
 .home {
   position: absolute;
-  top: 4rem;
-  right: 4rem;
-  font-size: calc(0.8rem + 1vw);
+  bottom: 4rem;
+  left: 6rem;
+  font-size: calc(1rem + 0.3vw);
   color: #333;
   z-index: 99;
   transition: all 500ms;
-}
-
-.home:hover .arrow {
-  bottom: -4rem;
 }
 
 .arrow {
@@ -99,6 +95,11 @@
 
   .left {
     flex: 1;
+  }
+
+  .home {
+    bottom: unset;
+    top: 4rem;
   }
 }
 
