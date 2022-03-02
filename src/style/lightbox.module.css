@@ -36,8 +36,16 @@
   transition: all 500ms;
 }
 
-.arrow:hover {
-  background: rgb(245, 245, 245);
+.arrow img {
+  transition: transform 400ms;
+}
+
+.arrow:first-of-type:hover > img {
+  transform: translateX(-5px);
+}
+
+.arrow:last-of-type:hover > img {
+  transform: translateX(5px);
 }
 
 .header {

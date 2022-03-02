@@ -34,12 +34,10 @@ const Lightbox = (props) => {
 
   function increment() {
     setIndex(index === allImages.length - 1 ? 0 : index + 1);
-    console.log(index);
   }
 
   function decrement() {
     setIndex(index === 0 ? allImages.length - 1 : index - 1);
-    console.log(index);
   }
 
   function handleClick(e) {
@@ -99,7 +97,12 @@ const Lightbox = (props) => {
             </div>
           </header>
           <main>
-            <button type="button" className={styles.arrow} onClick={decrement}>
+            <button
+              type="button"
+              aria-label="previous project"
+              className={styles.arrow}
+              onClick={decrement}
+            >
               <img src={chevronLeft} alt="left arrow" />
             </button>
             <GatsbyImage
@@ -110,7 +113,12 @@ const Lightbox = (props) => {
               }`}
               objectFit="contain"
             />
-            <button type="button" className={styles.arrow} onClick={increment}>
+            <button
+              type="button"
+              aria-label="next project"
+              className={styles.arrow}
+              onClick={increment}
+            >
               <img src={chevronRight} alt="left arrow" />
             </button>
           </main>
