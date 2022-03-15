@@ -2,6 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   width: 100%;
   margin-top: var(--space-2xl);
   text-align: right;
@@ -11,4 +13,15 @@
 
 .footer p {
   margin: 0;
+}
+
+@media (max-width: 550px) {
+  .footer {
+    flex-flow: column wrap;
+    padding: 1rem;
+  }
+
+  .footer p:last-child {
+    font-size: 0.75rem;
+  }
 }
