@@ -18,7 +18,6 @@
 @media (max-width: 550px) {
   .footer {
     flex-flow: column wrap;
-    padding: 1rem;
   }
 
   .footer p:last-child {
